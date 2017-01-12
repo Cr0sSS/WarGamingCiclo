@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="15G1212" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Module" representedClassName="Module" parentEntity="ShipsObject" syncable="YES" codeGenerationType="class">
+        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="moduleID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stats" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeLocalized" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ship" inverseName="modules" inverseEntity="Ship" syncable="YES"/>
+    </entity>
+    <entity name="Nation" representedClassName="Nation" parentEntity="ShipsObject" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nationID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ship" inverseName="nation" inverseEntity="Ship" syncable="YES"/>
+    </entity>
+    <entity name="Ship" representedClassName="Ship" parentEntity="ShipsObject" syncable="YES" codeGenerationType="class">
+        <attribute name="additionalBattery" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="airGroup" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="antiAircraft" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="battleRangeMax" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="battleRangeMin" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="concealment" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="contourImageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailsRefreshDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isPremium" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="largeImageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainBattery" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="mainStats" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="mediumImageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobility" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="modSlots" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="moduleIDs" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="review" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shipID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smallImageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tier" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="torpedoes" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="upgradeIDs" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="modules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Module" inverseName="ships" inverseEntity="Module" syncable="YES"/>
+        <relationship name="nation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nation" inverseName="ships" inverseEntity="Nation" syncable="YES"/>
+        <relationship name="type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShipType" inverseName="ships" inverseEntity="ShipType" syncable="YES"/>
+        <relationship name="upgrades" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Upgrade" inverseName="ships" inverseEntity="Upgrade" syncable="YES"/>
+    </entity>
+    <entity name="ShipsObject" representedClassName="ShipsObject" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="refreshDate" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ShipType" representedClassName="ShipType" parentEntity="ShipsObject" syncable="YES" codeGenerationType="class">
+        <attribute name="eliteImageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="premiumImageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ship" inverseName="type" inverseEntity="Ship" syncable="YES"/>
+    </entity>
+    <entity name="Upgrade" representedClassName="Upgrade" parentEntity="ShipsObject" syncable="YES" codeGenerationType="class">
+        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="review" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stats" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="upgradeID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ship" inverseName="upgrades" inverseEntity="Ship" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Module" positionX="457" positionY="-189" width="128" height="163"/>
+        <element name="Nation" positionX="-126" positionY="-162" width="128" height="88"/>
+        <element name="Ship" positionX="180" positionY="-243" width="128" height="448"/>
+        <element name="ShipsObject" positionX="63" positionY="-349" width="353" height="58"/>
+        <element name="ShipType" positionX="-128" positionY="57" width="128" height="133"/>
+        <element name="Upgrade" positionX="457" positionY="42" width="128" height="178"/>
+    </elements>
+</model>

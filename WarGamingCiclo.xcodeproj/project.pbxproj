@@ -1,0 +1,771 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		84393D8C1E027ADB00AFF80F /* StatHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84393D8B1E027ADB00AFF80F /* StatHeaderCell.m */; };
+		84393D8F1E028CD600AFF80F /* ModuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84393D8E1E028CD600AFF80F /* ModuleCell.m */; };
+		84393D921E028DE000AFF80F /* ModulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84393D911E028DE000AFF80F /* ModulesViewController.m */; };
+		843A1CDA1E0CFA7900CDFF9D /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 843A1CD91E0CFA7900CDFF9D /* DataManager.m */; };
+		843A35611E07BE18000B65FD /* GroupInStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843A35601E07BE18000B65FD /* GroupInStatsCell.m */; };
+		843A356A1E07EB42000B65FD /* UpgradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843A35691E07EB42000B65FD /* UpgradesViewController.m */; };
+		843A356D1E07ED31000B65FD /* UpgradeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843A356C1E07ED31000B65FD /* UpgradeCell.m */; };
+		8442219C1E24C36F00F5AA38 /* ShipDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442219B1E24C36F00F5AA38 /* ShipDescriptionViewController.m */; };
+		8445E4A11DF93052000700FC /* LargeImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8445E4A01DF93052000700FC /* LargeImageCell.m */; };
+		8445E4A41DF93308000700FC /* ShipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8445E4A31DF93308000700FC /* ShipDetailsViewController.m */; };
+		8445E4A71DF95F74000700FC /* StatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8445E4A61DF95F74000700FC /* StatCell.m */; };
+		8445E4AA1DF961BD000700FC /* UnitHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8445E4A91DF961BD000700FC /* UnitHeaderCell.m */; };
+		8453EEC31DF6807C004668A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEC21DF6807C004668A8 /* main.m */; };
+		8453EEC61DF6807C004668A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEC51DF6807C004668A8 /* AppDelegate.m */; };
+		8453EECC1DF6807C004668A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8453EECA1DF6807C004668A8 /* Main.storyboard */; };
+		8453EECF1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8453EECD1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld */; };
+		8453EED11DF6807C004668A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8453EED01DF6807C004668A8 /* Assets.xcassets */; };
+		8453EED41DF6807C004668A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8453EED21DF6807C004668A8 /* LaunchScreen.storyboard */; };
+		8453EEDF1DF6807C004668A8 /* WarGamingCicloTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEDE1DF6807C004668A8 /* WarGamingCicloTests.m */; };
+		8453EEEA1DF6807C004668A8 /* WarGamingCicloUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEE91DF6807C004668A8 /* WarGamingCicloUITests.m */; };
+		8453EEF91DF68119004668A8 /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEF81DF68119004668A8 /* ServerManager.m */; };
+		8453EEFD1DF695D7004668A8 /* NationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEFC1DF695D7004668A8 /* NationCell.m */; };
+		8453EF001DF696BA004668A8 /* TypesAndNationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EEFF1DF696BA004668A8 /* TypesAndNationsViewController.m */; };
+		8453EF0A1DF6CD78004668A8 /* TypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453EF091DF6CD78004668A8 /* TypeCell.m */; };
+		84571B041E0BBC140022A23B /* UpgradeStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84571B031E0BBC140022A23B /* UpgradeStatCell.m */; };
+		84571B071E0BBD8D0022A23B /* UpgradeDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84571B061E0BBD8D0022A23B /* UpgradeDetailsViewController.m */; };
+		845DEE8E1E03FEDE00F9B52D /* ModuleDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845DEE8D1E03FEDE00F9B52D /* ModuleDetailsViewController.m */; };
+		845DEE911E03FF6D00F9B52D /* ModuleStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845DEE901E03FF6D00F9B52D /* ModuleStatCell.m */; };
+		84F0A3361E137C860084F57A /* ParsingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0A3351E137C860084F57A /* ParsingManager.m */; };
+		84F47FD01DF7E43100FCE495 /* ShipGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F47FCF1DF7E43100FCE495 /* ShipGroupCell.m */; };
+		84F47FD31DF7E4E500FCE495 /* GroupOfShipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F47FD21DF7E4E500FCE495 /* GroupOfShipsViewController.m */; };
+		BEBA5394E9EC3AC2AB378DC9 /* libPods-WarGamingCiclo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE156B473CEC2EB833523185 /* libPods-WarGamingCiclo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8453EEDB1DF6807C004668A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8453EEB61DF6807C004668A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8453EEBD1DF6807C004668A8;
+			remoteInfo = WarGamingCiclo;
+		};
+		8453EEE61DF6807C004668A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8453EEB61DF6807C004668A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8453EEBD1DF6807C004668A8;
+			remoteInfo = WarGamingCiclo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		84393D8A1E027ADB00AFF80F /* StatHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatHeaderCell.h; sourceTree = "<group>"; };
+		84393D8B1E027ADB00AFF80F /* StatHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatHeaderCell.m; sourceTree = "<group>"; };
+		84393D8D1E028CD600AFF80F /* ModuleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleCell.h; sourceTree = "<group>"; };
+		84393D8E1E028CD600AFF80F /* ModuleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleCell.m; sourceTree = "<group>"; };
+		84393D901E028DE000AFF80F /* ModulesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModulesViewController.h; sourceTree = "<group>"; };
+		84393D911E028DE000AFF80F /* ModulesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModulesViewController.m; sourceTree = "<group>"; };
+		843A1CD81E0CFA7900CDFF9D /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		843A1CD91E0CFA7900CDFF9D /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		843A355F1E07BE18000B65FD /* GroupInStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInStatsCell.h; sourceTree = "<group>"; };
+		843A35601E07BE18000B65FD /* GroupInStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInStatsCell.m; sourceTree = "<group>"; };
+		843A35681E07EB42000B65FD /* UpgradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradesViewController.h; sourceTree = "<group>"; };
+		843A35691E07EB42000B65FD /* UpgradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradesViewController.m; sourceTree = "<group>"; };
+		843A356B1E07ED31000B65FD /* UpgradeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeCell.h; sourceTree = "<group>"; };
+		843A356C1E07ED31000B65FD /* UpgradeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeCell.m; sourceTree = "<group>"; };
+		8442219A1E24C36F00F5AA38 /* ShipDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipDescriptionViewController.h; sourceTree = "<group>"; };
+		8442219B1E24C36F00F5AA38 /* ShipDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipDescriptionViewController.m; sourceTree = "<group>"; };
+		8445E49F1DF93052000700FC /* LargeImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeImageCell.h; sourceTree = "<group>"; };
+		8445E4A01DF93052000700FC /* LargeImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeImageCell.m; sourceTree = "<group>"; };
+		8445E4A21DF93308000700FC /* ShipDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipDetailsViewController.h; sourceTree = "<group>"; };
+		8445E4A31DF93308000700FC /* ShipDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipDetailsViewController.m; sourceTree = "<group>"; };
+		8445E4A51DF95F74000700FC /* StatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatCell.h; sourceTree = "<group>"; };
+		8445E4A61DF95F74000700FC /* StatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatCell.m; sourceTree = "<group>"; };
+		8445E4A81DF961BD000700FC /* UnitHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitHeaderCell.h; sourceTree = "<group>"; };
+		8445E4A91DF961BD000700FC /* UnitHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitHeaderCell.m; sourceTree = "<group>"; };
+		8453EEBE1DF6807C004668A8 /* WarGamingCiclo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarGamingCiclo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8453EEC21DF6807C004668A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8453EEC41DF6807C004668A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8453EEC51DF6807C004668A8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8453EECB1DF6807C004668A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8453EECE1DF6807C004668A8 /* WarGamingCiclo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WarGamingCiclo.xcdatamodel; sourceTree = "<group>"; };
+		8453EED01DF6807C004668A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8453EED31DF6807C004668A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8453EED51DF6807C004668A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8453EEDA1DF6807C004668A8 /* WarGamingCicloTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WarGamingCicloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8453EEDE1DF6807C004668A8 /* WarGamingCicloTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarGamingCicloTests.m; sourceTree = "<group>"; };
+		8453EEE01DF6807C004668A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8453EEE51DF6807C004668A8 /* WarGamingCicloUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WarGamingCicloUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8453EEE91DF6807C004668A8 /* WarGamingCicloUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarGamingCicloUITests.m; sourceTree = "<group>"; };
+		8453EEEB1DF6807C004668A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8453EEF71DF68119004668A8 /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
+		8453EEF81DF68119004668A8 /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
+		8453EEFB1DF695D7004668A8 /* NationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NationCell.h; sourceTree = "<group>"; };
+		8453EEFC1DF695D7004668A8 /* NationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NationCell.m; sourceTree = "<group>"; };
+		8453EEFE1DF696BA004668A8 /* TypesAndNationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypesAndNationsViewController.h; sourceTree = "<group>"; };
+		8453EEFF1DF696BA004668A8 /* TypesAndNationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypesAndNationsViewController.m; sourceTree = "<group>"; };
+		8453EF081DF6CD78004668A8 /* TypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeCell.h; sourceTree = "<group>"; };
+		8453EF091DF6CD78004668A8 /* TypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeCell.m; sourceTree = "<group>"; };
+		84571B021E0BBC140022A23B /* UpgradeStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeStatCell.h; sourceTree = "<group>"; };
+		84571B031E0BBC140022A23B /* UpgradeStatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeStatCell.m; sourceTree = "<group>"; };
+		84571B051E0BBD8D0022A23B /* UpgradeDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeDetailsViewController.h; sourceTree = "<group>"; };
+		84571B061E0BBD8D0022A23B /* UpgradeDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeDetailsViewController.m; sourceTree = "<group>"; };
+		845DEE8C1E03FEDE00F9B52D /* ModuleDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleDetailsViewController.h; sourceTree = "<group>"; };
+		845DEE8D1E03FEDE00F9B52D /* ModuleDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleDetailsViewController.m; sourceTree = "<group>"; };
+		845DEE8F1E03FF6D00F9B52D /* ModuleStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleStatCell.h; sourceTree = "<group>"; };
+		845DEE901E03FF6D00F9B52D /* ModuleStatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleStatCell.m; sourceTree = "<group>"; };
+		84F0A3341E137C860084F57A /* ParsingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParsingManager.h; sourceTree = "<group>"; };
+		84F0A3351E137C860084F57A /* ParsingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParsingManager.m; sourceTree = "<group>"; };
+		84F47FCE1DF7E43100FCE495 /* ShipGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipGroupCell.h; sourceTree = "<group>"; };
+		84F47FCF1DF7E43100FCE495 /* ShipGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipGroupCell.m; sourceTree = "<group>"; };
+		84F47FD11DF7E4E500FCE495 /* GroupOfShipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupOfShipsViewController.h; sourceTree = "<group>"; };
+		84F47FD21DF7E4E500FCE495 /* GroupOfShipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupOfShipsViewController.m; sourceTree = "<group>"; };
+		962B44B5A721986E36AA1DA6 /* Pods-WarGamingCiclo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WarGamingCiclo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WarGamingCiclo/Pods-WarGamingCiclo.debug.xcconfig"; sourceTree = "<group>"; };
+		B3AE22252DFEE045858B571F /* Pods-WarGamingCiclo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WarGamingCiclo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WarGamingCiclo/Pods-WarGamingCiclo.release.xcconfig"; sourceTree = "<group>"; };
+		DE156B473CEC2EB833523185 /* libPods-WarGamingCiclo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WarGamingCiclo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8453EEBB1DF6807C004668A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEBA5394E9EC3AC2AB378DC9 /* libPods-WarGamingCiclo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8453EED71DF6807C004668A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8453EEE21DF6807C004668A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B5FB5CB54184A41392B425D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE156B473CEC2EB833523185 /* libPods-WarGamingCiclo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8453EEB51DF6807C004668A8 = {
+			isa = PBXGroup;
+			children = (
+				8453EEC01DF6807C004668A8 /* WarGamingCiclo */,
+				8453EEDD1DF6807C004668A8 /* WarGamingCicloTests */,
+				8453EEE81DF6807C004668A8 /* WarGamingCicloUITests */,
+				8453EEBF1DF6807C004668A8 /* Products */,
+				A4497A6EBB29FA190C0DC93D /* Pods */,
+				6B5FB5CB54184A41392B425D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8453EEBF1DF6807C004668A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEBE1DF6807C004668A8 /* WarGamingCiclo.app */,
+				8453EEDA1DF6807C004668A8 /* WarGamingCicloTests.xctest */,
+				8453EEE51DF6807C004668A8 /* WarGamingCicloUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8453EEC01DF6807C004668A8 /* WarGamingCiclo */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEFA1DF695BC004668A8 /* Cells */,
+				8453EEC41DF6807C004668A8 /* AppDelegate.h */,
+				8453EEC51DF6807C004668A8 /* AppDelegate.m */,
+				843A1CD81E0CFA7900CDFF9D /* DataManager.h */,
+				843A1CD91E0CFA7900CDFF9D /* DataManager.m */,
+				8453EEF71DF68119004668A8 /* ServerManager.h */,
+				8453EEF81DF68119004668A8 /* ServerManager.m */,
+				84F0A3341E137C860084F57A /* ParsingManager.h */,
+				84F0A3351E137C860084F57A /* ParsingManager.m */,
+				8453EEFE1DF696BA004668A8 /* TypesAndNationsViewController.h */,
+				8453EEFF1DF696BA004668A8 /* TypesAndNationsViewController.m */,
+				84F47FD11DF7E4E500FCE495 /* GroupOfShipsViewController.h */,
+				84F47FD21DF7E4E500FCE495 /* GroupOfShipsViewController.m */,
+				8445E4A21DF93308000700FC /* ShipDetailsViewController.h */,
+				8445E4A31DF93308000700FC /* ShipDetailsViewController.m */,
+				8442219A1E24C36F00F5AA38 /* ShipDescriptionViewController.h */,
+				8442219B1E24C36F00F5AA38 /* ShipDescriptionViewController.m */,
+				84393D901E028DE000AFF80F /* ModulesViewController.h */,
+				84393D911E028DE000AFF80F /* ModulesViewController.m */,
+				845DEE8C1E03FEDE00F9B52D /* ModuleDetailsViewController.h */,
+				845DEE8D1E03FEDE00F9B52D /* ModuleDetailsViewController.m */,
+				843A35681E07EB42000B65FD /* UpgradesViewController.h */,
+				843A35691E07EB42000B65FD /* UpgradesViewController.m */,
+				84571B051E0BBD8D0022A23B /* UpgradeDetailsViewController.h */,
+				84571B061E0BBD8D0022A23B /* UpgradeDetailsViewController.m */,
+				8453EECA1DF6807C004668A8 /* Main.storyboard */,
+				8453EED01DF6807C004668A8 /* Assets.xcassets */,
+				8453EED21DF6807C004668A8 /* LaunchScreen.storyboard */,
+				8453EED51DF6807C004668A8 /* Info.plist */,
+				8453EECD1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld */,
+				8453EEC11DF6807C004668A8 /* Supporting Files */,
+			);
+			path = WarGamingCiclo;
+			sourceTree = "<group>";
+		};
+		8453EEC11DF6807C004668A8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEC21DF6807C004668A8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8453EEDD1DF6807C004668A8 /* WarGamingCicloTests */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEDE1DF6807C004668A8 /* WarGamingCicloTests.m */,
+				8453EEE01DF6807C004668A8 /* Info.plist */,
+			);
+			path = WarGamingCicloTests;
+			sourceTree = "<group>";
+		};
+		8453EEE81DF6807C004668A8 /* WarGamingCicloUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEE91DF6807C004668A8 /* WarGamingCicloUITests.m */,
+				8453EEEB1DF6807C004668A8 /* Info.plist */,
+			);
+			path = WarGamingCicloUITests;
+			sourceTree = "<group>";
+		};
+		8453EEFA1DF695BC004668A8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEFB1DF695D7004668A8 /* NationCell.h */,
+				8453EEFC1DF695D7004668A8 /* NationCell.m */,
+				8453EF081DF6CD78004668A8 /* TypeCell.h */,
+				8453EF091DF6CD78004668A8 /* TypeCell.m */,
+				84F47FCE1DF7E43100FCE495 /* ShipGroupCell.h */,
+				84F47FCF1DF7E43100FCE495 /* ShipGroupCell.m */,
+				8445E49F1DF93052000700FC /* LargeImageCell.h */,
+				8445E4A01DF93052000700FC /* LargeImageCell.m */,
+				8445E4A81DF961BD000700FC /* UnitHeaderCell.h */,
+				8445E4A91DF961BD000700FC /* UnitHeaderCell.m */,
+				84393D8A1E027ADB00AFF80F /* StatHeaderCell.h */,
+				84393D8B1E027ADB00AFF80F /* StatHeaderCell.m */,
+				843A355F1E07BE18000B65FD /* GroupInStatsCell.h */,
+				843A35601E07BE18000B65FD /* GroupInStatsCell.m */,
+				8445E4A51DF95F74000700FC /* StatCell.h */,
+				8445E4A61DF95F74000700FC /* StatCell.m */,
+				84393D8D1E028CD600AFF80F /* ModuleCell.h */,
+				84393D8E1E028CD600AFF80F /* ModuleCell.m */,
+				845DEE8F1E03FF6D00F9B52D /* ModuleStatCell.h */,
+				845DEE901E03FF6D00F9B52D /* ModuleStatCell.m */,
+				843A356B1E07ED31000B65FD /* UpgradeCell.h */,
+				843A356C1E07ED31000B65FD /* UpgradeCell.m */,
+				84571B021E0BBC140022A23B /* UpgradeStatCell.h */,
+				84571B031E0BBC140022A23B /* UpgradeStatCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		A4497A6EBB29FA190C0DC93D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				962B44B5A721986E36AA1DA6 /* Pods-WarGamingCiclo.debug.xcconfig */,
+				B3AE22252DFEE045858B571F /* Pods-WarGamingCiclo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8453EEBD1DF6807C004668A8 /* WarGamingCiclo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8453EEEE1DF6807C004668A8 /* Build configuration list for PBXNativeTarget "WarGamingCiclo" */;
+			buildPhases = (
+				1D310D9594327F70C5B5CC51 /* [CP] Check Pods Manifest.lock */,
+				8453EEBA1DF6807C004668A8 /* Sources */,
+				8453EEBB1DF6807C004668A8 /* Frameworks */,
+				8453EEBC1DF6807C004668A8 /* Resources */,
+				D1A465965F4A086CE7B9737D /* [CP] Embed Pods Frameworks */,
+				EC4F7A745D3E5B3BAF0404A9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WarGamingCiclo;
+			productName = WarGamingCiclo;
+			productReference = 8453EEBE1DF6807C004668A8 /* WarGamingCiclo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8453EED91DF6807C004668A8 /* WarGamingCicloTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8453EEF11DF6807C004668A8 /* Build configuration list for PBXNativeTarget "WarGamingCicloTests" */;
+			buildPhases = (
+				8453EED61DF6807C004668A8 /* Sources */,
+				8453EED71DF6807C004668A8 /* Frameworks */,
+				8453EED81DF6807C004668A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8453EEDC1DF6807C004668A8 /* PBXTargetDependency */,
+			);
+			name = WarGamingCicloTests;
+			productName = WarGamingCicloTests;
+			productReference = 8453EEDA1DF6807C004668A8 /* WarGamingCicloTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8453EEE41DF6807C004668A8 /* WarGamingCicloUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8453EEF41DF6807C004668A8 /* Build configuration list for PBXNativeTarget "WarGamingCicloUITests" */;
+			buildPhases = (
+				8453EEE11DF6807C004668A8 /* Sources */,
+				8453EEE21DF6807C004668A8 /* Frameworks */,
+				8453EEE31DF6807C004668A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8453EEE71DF6807C004668A8 /* PBXTargetDependency */,
+			);
+			name = WarGamingCicloUITests;
+			productName = WarGamingCicloUITests;
+			productReference = 8453EEE51DF6807C004668A8 /* WarGamingCicloUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8453EEB61DF6807C004668A8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Andrey Kuznetsov";
+				TargetAttributes = {
+					8453EEBD1DF6807C004668A8 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					8453EED91DF6807C004668A8 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8453EEBD1DF6807C004668A8;
+					};
+					8453EEE41DF6807C004668A8 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8453EEBD1DF6807C004668A8;
+					};
+				};
+			};
+			buildConfigurationList = 8453EEB91DF6807C004668A8 /* Build configuration list for PBXProject "WarGamingCiclo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8453EEB51DF6807C004668A8;
+			productRefGroup = 8453EEBF1DF6807C004668A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8453EEBD1DF6807C004668A8 /* WarGamingCiclo */,
+				8453EED91DF6807C004668A8 /* WarGamingCicloTests */,
+				8453EEE41DF6807C004668A8 /* WarGamingCicloUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8453EEBC1DF6807C004668A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8453EED41DF6807C004668A8 /* LaunchScreen.storyboard in Resources */,
+				8453EED11DF6807C004668A8 /* Assets.xcassets in Resources */,
+				8453EECC1DF6807C004668A8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8453EED81DF6807C004668A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8453EEE31DF6807C004668A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D310D9594327F70C5B5CC51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D1A465965F4A086CE7B9737D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WarGamingCiclo/Pods-WarGamingCiclo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC4F7A745D3E5B3BAF0404A9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WarGamingCiclo/Pods-WarGamingCiclo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8453EEBA1DF6807C004668A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				843A356D1E07ED31000B65FD /* UpgradeCell.m in Sources */,
+				8453EEF91DF68119004668A8 /* ServerManager.m in Sources */,
+				8445E4A41DF93308000700FC /* ShipDetailsViewController.m in Sources */,
+				8453EEFD1DF695D7004668A8 /* NationCell.m in Sources */,
+				8445E4AA1DF961BD000700FC /* UnitHeaderCell.m in Sources */,
+				84393D921E028DE000AFF80F /* ModulesViewController.m in Sources */,
+				84393D8F1E028CD600AFF80F /* ModuleCell.m in Sources */,
+				843A1CDA1E0CFA7900CDFF9D /* DataManager.m in Sources */,
+				84F47FD01DF7E43100FCE495 /* ShipGroupCell.m in Sources */,
+				8442219C1E24C36F00F5AA38 /* ShipDescriptionViewController.m in Sources */,
+				84F47FD31DF7E4E500FCE495 /* GroupOfShipsViewController.m in Sources */,
+				84393D8C1E027ADB00AFF80F /* StatHeaderCell.m in Sources */,
+				8445E4A71DF95F74000700FC /* StatCell.m in Sources */,
+				8453EEC61DF6807C004668A8 /* AppDelegate.m in Sources */,
+				845DEE8E1E03FEDE00F9B52D /* ModuleDetailsViewController.m in Sources */,
+				845DEE911E03FF6D00F9B52D /* ModuleStatCell.m in Sources */,
+				843A35611E07BE18000B65FD /* GroupInStatsCell.m in Sources */,
+				8445E4A11DF93052000700FC /* LargeImageCell.m in Sources */,
+				8453EF001DF696BA004668A8 /* TypesAndNationsViewController.m in Sources */,
+				843A356A1E07EB42000B65FD /* UpgradesViewController.m in Sources */,
+				84F0A3361E137C860084F57A /* ParsingManager.m in Sources */,
+				8453EECF1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld in Sources */,
+				84571B041E0BBC140022A23B /* UpgradeStatCell.m in Sources */,
+				8453EF0A1DF6CD78004668A8 /* TypeCell.m in Sources */,
+				84571B071E0BBD8D0022A23B /* UpgradeDetailsViewController.m in Sources */,
+				8453EEC31DF6807C004668A8 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8453EED61DF6807C004668A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8453EEDF1DF6807C004668A8 /* WarGamingCicloTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8453EEE11DF6807C004668A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8453EEEA1DF6807C004668A8 /* WarGamingCicloUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8453EEDC1DF6807C004668A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8453EEBD1DF6807C004668A8 /* WarGamingCiclo */;
+			targetProxy = 8453EEDB1DF6807C004668A8 /* PBXContainerItemProxy */;
+		};
+		8453EEE71DF6807C004668A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8453EEBD1DF6807C004668A8 /* WarGamingCiclo */;
+			targetProxy = 8453EEE61DF6807C004668A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8453EECA1DF6807C004668A8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8453EECB1DF6807C004668A8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8453EED21DF6807C004668A8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8453EED31DF6807C004668A8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8453EEEC1DF6807C004668A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8453EEED1DF6807C004668A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8453EEEF1DF6807C004668A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 962B44B5A721986E36AA1DA6 /* Pods-WarGamingCiclo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = WarGamingCiclo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.crxmx.WarGamingCiclo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8453EEF01DF6807C004668A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3AE22252DFEE045858B571F /* Pods-WarGamingCiclo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = WarGamingCiclo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.crxmx.WarGamingCiclo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8453EEF21DF6807C004668A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = WarGamingCicloTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.crxmx.WarGamingCicloTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WarGamingCiclo.app/WarGamingCiclo";
+			};
+			name = Debug;
+		};
+		8453EEF31DF6807C004668A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = WarGamingCicloTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.crxmx.WarGamingCicloTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WarGamingCiclo.app/WarGamingCiclo";
+			};
+			name = Release;
+		};
+		8453EEF51DF6807C004668A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WarGamingCicloUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.crxmx.WarGamingCicloUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = WarGamingCiclo;
+			};
+			name = Debug;
+		};
+		8453EEF61DF6807C004668A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WarGamingCicloUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.crxmx.WarGamingCicloUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = WarGamingCiclo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8453EEB91DF6807C004668A8 /* Build configuration list for PBXProject "WarGamingCiclo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8453EEEC1DF6807C004668A8 /* Debug */,
+				8453EEED1DF6807C004668A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8453EEEE1DF6807C004668A8 /* Build configuration list for PBXNativeTarget "WarGamingCiclo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8453EEEF1DF6807C004668A8 /* Debug */,
+				8453EEF01DF6807C004668A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8453EEF11DF6807C004668A8 /* Build configuration list for PBXNativeTarget "WarGamingCicloTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8453EEF21DF6807C004668A8 /* Debug */,
+				8453EEF31DF6807C004668A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8453EEF41DF6807C004668A8 /* Build configuration list for PBXNativeTarget "WarGamingCicloUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8453EEF51DF6807C004668A8 /* Debug */,
+				8453EEF61DF6807C004668A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8453EECD1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8453EECE1DF6807C004668A8 /* WarGamingCiclo.xcdatamodel */,
+			);
+			currentVersion = 8453EECE1DF6807C004668A8 /* WarGamingCiclo.xcdatamodel */;
+			path = WarGamingCiclo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8453EEB61DF6807C004668A8 /* Project object */;
+}
