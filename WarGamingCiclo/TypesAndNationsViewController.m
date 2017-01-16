@@ -55,13 +55,13 @@ static NSString* const typeCellIdentifier = @"TypeCell";
     [[ServerManager sharedManager]
      getTypesAndNationsFromServerOnSuccess:^(NSDictionary* response) {
          
-         NSDictionary* responsedNations = [response objectForKey:@"ship_nations"];
+         NSDictionary* responsedNations = response[@"ship_nations"];
          
          NSArray* nationsKeys = [responsedNations allKeys];
          NSArray* nationsNames = [responsedNations allValues];
          
-         NSDictionary* responsedTypes = [response objectForKey:@"ship_types"];
-         NSDictionary* responsedImages = [response objectForKey:@"ship_type_images"];
+         NSDictionary* responsedTypes = response[@"ship_types"];
+         NSDictionary* responsedImages = response[@"ship_type_images"];
          
          NSArray* shipsKeys = [responsedTypes allKeys];
          NSArray* shipsNames = [responsedTypes allValues];
@@ -73,8 +73,8 @@ static NSString* const typeCellIdentifier = @"TypeCell";
              for (NSInteger i = 0; i < [nationsKeys count]; i++) {
                  
                  if (![[nationsKeys objectAtIndex:i] isEqualToString:@"events"]) {
-                     [[DataManager sharedManager] nationWithName:[nationsNames objectAtIndex:i]
-                                                           andID:[nationsKeys objectAtIndex:i]];
+                     [[DataManager sharedManager] nationWithName:nationsNames[i]
+                                                           andID:nationsKeys[i]];
                  }
              }
              
@@ -82,8 +82,8 @@ static NSString* const typeCellIdentifier = @"TypeCell";
                  NSString* typeID = [shipsKeys objectAtIndex:i];
                  
                  [[DataManager sharedManager] shipTypeWithID:typeID
-                                                        name:[shipsNames objectAtIndex:i]
-                                                  imagesDict:[responsedImages objectForKey:typeID]];
+                                                        name:shipsNames[i]
+                                                  imagesDict:responsedImages[typeID]];
              }
 
              [[DataManager sharedManager] saveContext];
@@ -100,7 +100,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
              if (![someNation.refreshDate isEqual:[ServerManager sharedManager].currentDate]) {
                  
                  for (Nation* nation in self.nationsArray) {
-                     NSString* name = [responsedNations valueForKey:nation.nationID];
+                     NSString* name = responsedNations[nation.nationID];
                      [[ParsingManager sharedManager] nation:nation
                                                fillWithName:name
                                                       andID:nation.nationID];
@@ -111,7 +111,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
                      [[ParsingManager sharedManager] shipType:type
                                                    fillWithID:type.typeID
                                                          name:name
-                                                   imagesDict:[responsedImages objectForKey:type.typeID]];
+                                                   imagesDict:responsedImages[type.typeID]];
                  }
                  
                  [[DataManager sharedManager] saveContext];
@@ -133,7 +133,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 }
 
 
-- (void) fillMainArrays {
+- (void)fillMainArrays {
     self.nationsArray = [[DataManager sharedManager] getAllEntities:@"Nation"];
     self.typesArray = [[DataManager sharedManager] getAllEntities:@"ShipType"];
 }
@@ -147,13 +147,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-
-    if (section == 0) {
-        return [self.nationsArray count];
-        
-    } else {
-        return [self.typesArray count];
-    }
+    return (section == 0) ? [self.nationsArray count] : [self.typesArray count];
 }
 
 
@@ -162,7 +156,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
     if (indexPath.section == 0 ) {
         NationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:nationCellIdentifier forIndexPath:indexPath];
         
-        Nation* nation = [self.nationsArray objectAtIndex:indexPath.row];
+        Nation* nation = self.nationsArray[indexPath.row];
         cell.nationTextLabel.text = nation.name;
         cell.flagImageView.image = [UIImage imageNamed:nation.nationID];
         
@@ -171,7 +165,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
     } else {
         TypeCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:typeCellIdentifier forIndexPath:indexPath];
         
-        ShipType* type = [self.typesArray objectAtIndex:indexPath.row];
+        ShipType* type = self.typesArray[indexPath.row];
         cell.typeTextLabel.text = type.name;
         
         NSURL* imageURL = [NSURL URLWithString:type.eliteImageString];
@@ -197,14 +191,10 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 }
 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout
+                                            sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
-        return CGSizeMake(120.f, 86.f);
-        
-    } else {
-        return CGSizeMake(87.f, 46.f);
-    }
+    return (indexPath.section == 0) ? CGSizeMake(120.f, 86.f) : CGSizeMake(87.f, 46.f);
 }
 
 
@@ -220,9 +210,9 @@ static NSString* const typeCellIdentifier = @"TypeCell";
     GroupOfShipsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"GroupsOfShipsVC"];
     
     if (indexPath.section == 0) {
-        vc.nation = [self.nationsArray objectAtIndex:indexPath.row];
+        vc.nation = self.nationsArray[indexPath.row];
     } else {
-        vc.shipType = [self.typesArray objectAtIndex:indexPath.row];
+        vc.shipType = self.typesArray[indexPath.row];
     }
     
     [self.navigationController pushViewController:vc animated:YES];

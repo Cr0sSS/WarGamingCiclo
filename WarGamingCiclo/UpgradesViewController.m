@@ -105,7 +105,7 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 }
 
 
-- (void) reloadData {
+- (void)reloadData {
     
     [[DataManager sharedManager] saveContext];
     self.upgradesArray = [[DataManager sharedManager] getEntities:@"Upgrade" forShip:self.ship];
@@ -126,7 +126,7 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[self.upgradesArray objectAtIndex:section] count];
+    return [self.upgradesArray[section] count];
 }
 
 
@@ -134,7 +134,7 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
     
     UpgradeCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:upgradeCellIdentifier forIndexPath:indexPath];
     
-    Upgrade* upgrade = [[self.upgradesArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    Upgrade* upgrade = self.upgradesArray[indexPath.section][indexPath.row];
     
     cell.upgradeTextLabel.text = [NSString stringWithFormat:@"%@ %d", upgrade.name, upgrade.mode];
     
@@ -177,7 +177,7 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
     
     UpgradeDetailsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UpgradeDetailsVC"];
     
-    vc.upgrade = [[self.upgradesArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    vc.upgrade = self.upgradesArray[indexPath.section][indexPath.row];
     vc.modalPresentationStyle = UIModalPresentationPopover;
     
     UIPopoverPresentationController *popController = vc.popoverPresentationController;
@@ -195,7 +195,8 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 }
 
 
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+                                                               traitCollection:(UITraitCollection *)traitCollection {
     return UIModalPresentationNone;
 }
 

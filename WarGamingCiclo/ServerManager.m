@@ -29,7 +29,7 @@
 
 static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 
-+ (ServerManager*) sharedManager {
++ (ServerManager*)sharedManager {
     
     static ServerManager* manager = nil;
     
@@ -54,22 +54,20 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 }
 
 
-- (void) getTypesAndNationsFromServerOnSuccess:(void(^)(NSDictionary* response))success
+- (void)getTypesAndNationsFromServerOnSuccess:(void(^)(NSDictionary* response))success
                                      onFailure:(void(^)(NSError* error))failure {
     
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            appID,@"application_id",
-                            @"ru",@"language",
-                            @"ship_types,ship_type_images,ship_nations,ships_updated_at",@"fields",
-                            nil];
+    NSDictionary* params = @{@"application_id" : appID,
+                             @"language" : @"ru",
+                             @"fields" : @"ship_types,ship_type_images,ship_nations,ships_updated_at"};
     
     [self.sessionManager GET:@"info/"
                   parameters:params
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          
-                         NSDictionary* response = [responseObject objectForKey:@"data"];
-                         [ServerManager sharedManager].currentDate = [[response objectForKey:@"ships_updated_at"] stringValue];
+                         NSDictionary* response = responseObject[@"data"];
+                         [ServerManager sharedManager].currentDate = [response[@"ships_updated_at"] stringValue];
                                                   
                          if (success) {
                              success(response);
@@ -81,7 +79,7 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 }
 
 
-- (void) getShipsFromServerWithType:(NSString*)typeID
+- (void)getShipsFromServerWithType:(NSString*)typeID
                              nation:(NSString*)nationID
                           onSuccess:(void(^)(NSDictionary* responseObject))success
                           onFailure:(void(^)(NSError* error))failure {
@@ -99,12 +97,10 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
         sortObj = typeID;
     }
     
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            appID,@"application_id",
-                            @"ru",@"language",
-                            @"ship_id,name,is_premium,tier,type,nation,images",@"fields",
-                            sortObj,sortKey,
-                            nil];
+    NSDictionary* params = @{@"application_id" : appID,
+                             @"language" : @"ru",
+                             @"fields" : @"ship_id,name,is_premium,tier,type,nation,images",
+                             sortKey : sortObj};
     
     [self.sessionManager GET:@"ships/"
                   parameters:params
@@ -122,23 +118,21 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 }
 
 
-- (void) getShipDetailsFromServerWithShip:(Ship*)ship
+- (void)getShipDetailsFromServerWithShip:(Ship*)ship
                         onSuccess:(void(^)(void))success
                         onFailure:(void(^)(NSError* error))failure {
  
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            appID,@"application_id",
-                            @"ru",@"language",
-                            ship.shipID,@"ship_id",
-                            nil];
+    NSDictionary* params = @{@"application_id" : appID,
+                             @"language" : @"ru",
+                             @"ship_id" : ship.shipID};
     
     [self.sessionManager GET:@"ships/"
                   parameters:params
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          
-                         NSDictionary* response = [responseObject objectForKey:@"data"];
-                         NSDictionary* shipDetails = [response objectForKey:ship.shipID];
+                         NSDictionary* response = responseObject[@"data"];
+                         NSDictionary* shipDetails = response[ship.shipID];
                                                   
                          [[ParsingManager sharedManager] ship:ship
                                        parseFullDetailResponse:shipDetails];
@@ -153,22 +147,20 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 }
 
 
-- (void) getModuleFromServerWithID:(NSString*)moduleID
+- (void)getModuleFromServerWithID:(NSString*)moduleID
                                 onSuccess:(void(^)(NSDictionary* response))success
                                 onFailure:(void(^)(NSError* error))failure {
     
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            appID,@"application_id",
-                            @"ru",@"language",
-                            moduleID,@"module_id",
-                            nil];
+    NSDictionary* params = @{@"application_id" : appID,
+                             @"language" : @"ru",
+                             @"module_id" : moduleID};
     
     [self.sessionManager GET:@"modules/"
                   parameters:params
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          
-                         NSDictionary* response = [[responseObject objectForKey:@"data"] objectForKey:moduleID];
+                         NSDictionary* response = responseObject[@"data"][moduleID];
                          
                          if (success) {
                              success(response);
@@ -180,22 +172,20 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 }
 
 
-- (void) getUpgradeFromServerWithID:(NSString*)upgradeID
+- (void)getUpgradeFromServerWithID:(NSString*)upgradeID
                          onSuccess:(void(^)(NSDictionary* response))success
                          onFailure:(void(^)(NSError* error))failure {
     
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            appID,@"application_id",
-                            @"ru",@"language",
-                            upgradeID,@"upgrade_id",
-                            nil];
+    NSDictionary* params = @{@"application_id" : appID,
+                             @"language" : @"ru",
+                             @"upgrade_id" : upgradeID};
     
     [self.sessionManager GET:@"upgrades/"
                   parameters:params
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          
-                         NSDictionary* response = [[responseObject objectForKey:@"data"] objectForKey:upgradeID];
+                         NSDictionary* response = responseObject[@"data"][upgradeID];
                          
                          if (success) {
                              success(response);

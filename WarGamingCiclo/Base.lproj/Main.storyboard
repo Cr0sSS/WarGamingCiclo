@@ -265,7 +265,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hm-H0-0mN">
-                                            <rect key="frame" x="12" y="0.0" width="350" height="32"/>
+                                            <rect key="frame" x="12.5" y="0.0" width="350" height="32"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="группа" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Dn-pG-Wrk">
                                                     <rect key="frame" x="280" y="0.0" width="54" height="32"/>
@@ -639,7 +639,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="248" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="характеристика" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="6e0-Gd-vsD">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="характеристика" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="6e0-Gd-vsD">
                                             <rect key="frame" x="10" y="0.0" width="233" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="233" id="JYT-xO-aUx"/>
@@ -667,6 +667,7 @@
                                         <constraint firstAttribute="bottom" secondItem="BfZ-e4-sa9" secondAttribute="bottom" id="pCP-nJ-P4y"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="nameLabel" destination="6e0-Gd-vsD" id="XsF-4c-R9L"/>
                                     <outlet property="valueLabel" destination="BfZ-e4-sa9" id="1qt-z6-hAi"/>

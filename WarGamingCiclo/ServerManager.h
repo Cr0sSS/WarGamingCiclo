@@ -8,35 +8,32 @@
 
 #import <Foundation/Foundation.h>
 
-@class Ship;
-@class Module;
-@class Upgrade;
+@class Ship, Module, Upgrade;
 
 @interface ServerManager : NSObject
 
 @property (strong, nonatomic) NSString* currentDate;
 
-+ (ServerManager*) sharedManager;
++ (ServerManager*)sharedManager;
 
-- (void) getTypesAndNationsFromServerOnSuccess:(void(^)(NSDictionary* response))success
+- (void)getTypesAndNationsFromServerOnSuccess:(void(^)(NSDictionary* response))success
                                      onFailure:(void(^)(NSError* error))failure;
 
-- (void) getShipsFromServerWithType:(NSString*)typeID
+- (void)getShipsFromServerWithType:(NSString*)typeID
                              nation:(NSString*)nationID
                           onSuccess:(void(^)(NSDictionary* responseObject))success
                           onFailure:(void(^)(NSError* error))failure;
 
-- (void) getShipDetailsFromServerWithShip:(Ship*)ship
+- (void)getShipDetailsFromServerWithShip:(Ship*)ship
                         onSuccess:(void(^)(void))success
                         onFailure:(void(^)(NSError* error))failure;
 
-- (void) getModuleFromServerWithID:(NSString*)moduleID
+- (void)getModuleFromServerWithID:(NSString*)moduleID
                          onSuccess:(void(^)(NSDictionary* response))success
                          onFailure:(void(^)(NSError* error))failure;
 
-- (void) getUpgradeFromServerWithID:(NSString*)upgradeID
+- (void)getUpgradeFromServerWithID:(NSString*)upgradeID
                           onSuccess:(void(^)(NSDictionary* response))success
                           onFailure:(void(^)(NSError* error))failure;
-
 
 @end

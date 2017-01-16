@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) Ship* ship;
 
-- (void) reloadData;
+- (void)reloadData;
 
 @end

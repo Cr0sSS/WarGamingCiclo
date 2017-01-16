@@ -13,20 +13,20 @@
 
 @interface ParsingManager : NSObject
 
-+ (ParsingManager*) sharedManager;
++ (ParsingManager*)sharedManager;
 
-- (void) nation:(Nation*)nation fillWithName:(NSString*)name andID:(NSString*)nationID;
+- (void)nation:(Nation*)nation fillWithName:(NSString*)name andID:(NSString*)nationID;
 
-- (void) shipType:(ShipType*)type fillWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict;
+- (void)shipType:(ShipType*)type fillWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict;
 
-- (void) ship:(Ship*)ship fillWithID:(NSString*)shipID details:(NSDictionary*)dict;
-- (void) ship:(Ship*)ship parseFullDetailResponse:(NSDictionary*)dict;
+- (void)ship:(Ship*)ship fillWithID:(NSString*)shipID details:(NSDictionary*)dict;
+- (void)ship:(Ship*)ship parseFullDetailResponse:(NSDictionary*)dict;
 
-- (void) module:(Module*)module fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
-- (void) module:(Module *)module addShip:(Ship *)ship;
+- (void)module:(Module*)module fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
+- (void)module:(Module *)module addShip:(Ship *)ship;
 
-- (void) upgrade:(Upgrade*)upgrade fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
-- (void) upgrade:(Upgrade*)upgrade addShip:(Ship*)ship;
+- (void)upgrade:(Upgrade*)upgrade fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
+- (void)upgrade:(Upgrade*)upgrade addShip:(Ship*)ship;
 
 
 @end
