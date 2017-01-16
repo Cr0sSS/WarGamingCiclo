@@ -185,14 +185,10 @@
 			isa = PBXGroup;
 			children = (
 				8453EEFA1DF695BC004668A8 /* Cells */,
+				84937F981E2CA8B40024B1C0 /* CoreData */,
+				84937F991E2CA8C80024B1C0 /* API */,
 				8453EEC41DF6807C004668A8 /* AppDelegate.h */,
 				8453EEC51DF6807C004668A8 /* AppDelegate.m */,
-				843A1CD81E0CFA7900CDFF9D /* DataManager.h */,
-				843A1CD91E0CFA7900CDFF9D /* DataManager.m */,
-				8453EEF71DF68119004668A8 /* ServerManager.h */,
-				8453EEF81DF68119004668A8 /* ServerManager.m */,
-				84F0A3341E137C860084F57A /* ParsingManager.h */,
-				84F0A3351E137C860084F57A /* ParsingManager.m */,
 				8453EEFE1DF696BA004668A8 /* TypesAndNationsViewController.h */,
 				8453EEFF1DF696BA004668A8 /* TypesAndNationsViewController.m */,
 				84F47FD11DF7E4E500FCE495 /* GroupOfShipsViewController.h */,
@@ -213,7 +209,6 @@
 				8453EED01DF6807C004668A8 /* Assets.xcassets */,
 				8453EED21DF6807C004668A8 /* LaunchScreen.storyboard */,
 				8453EED51DF6807C004668A8 /* Info.plist */,
-				8453EECD1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld */,
 				8453EEC11DF6807C004668A8 /* Supporting Files */,
 			);
 			path = WarGamingCiclo;
@@ -248,12 +243,40 @@
 		8453EEFA1DF695BC004668A8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8453EEFB1DF695D7004668A8 /* NationCell.h */,
-				8453EEFC1DF695D7004668A8 /* NationCell.m */,
+				84937F911E2CA8370024B1C0 /* TypesAndNationsVC */,
+				84937F921E2CA8530024B1C0 /* GroupOfShipsVC */,
+				84937F931E2CA86F0024B1C0 /* ShipDetailsVC */,
+				84937F941E2CA8810024B1C0 /* ModulesVC */,
+				84937F951E2CA88D0024B1C0 /* ModuleDetailsVC */,
+				84937F961E2CA8980024B1C0 /* UpgradesVC */,
+				84937F971E2CA8A00024B1C0 /* UpgradeDetailsVC */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		84937F911E2CA8370024B1C0 /* TypesAndNationsVC */ = {
+			isa = PBXGroup;
+			children = (
 				8453EF081DF6CD78004668A8 /* TypeCell.h */,
 				8453EF091DF6CD78004668A8 /* TypeCell.m */,
+				8453EEFB1DF695D7004668A8 /* NationCell.h */,
+				8453EEFC1DF695D7004668A8 /* NationCell.m */,
+			);
+			name = TypesAndNationsVC;
+			sourceTree = "<group>";
+		};
+		84937F921E2CA8530024B1C0 /* GroupOfShipsVC */ = {
+			isa = PBXGroup;
+			children = (
 				84F47FCE1DF7E43100FCE495 /* ShipGroupCell.h */,
 				84F47FCF1DF7E43100FCE495 /* ShipGroupCell.m */,
+			);
+			name = GroupOfShipsVC;
+			sourceTree = "<group>";
+		};
+		84937F931E2CA86F0024B1C0 /* ShipDetailsVC */ = {
+			isa = PBXGroup;
+			children = (
 				8445E49F1DF93052000700FC /* LargeImageCell.h */,
 				8445E4A01DF93052000700FC /* LargeImageCell.m */,
 				8445E4A81DF961BD000700FC /* UnitHeaderCell.h */,
@@ -264,16 +287,65 @@
 				843A35601E07BE18000B65FD /* GroupInStatsCell.m */,
 				8445E4A51DF95F74000700FC /* StatCell.h */,
 				8445E4A61DF95F74000700FC /* StatCell.m */,
+			);
+			name = ShipDetailsVC;
+			sourceTree = "<group>";
+		};
+		84937F941E2CA8810024B1C0 /* ModulesVC */ = {
+			isa = PBXGroup;
+			children = (
 				84393D8D1E028CD600AFF80F /* ModuleCell.h */,
 				84393D8E1E028CD600AFF80F /* ModuleCell.m */,
+			);
+			name = ModulesVC;
+			sourceTree = "<group>";
+		};
+		84937F951E2CA88D0024B1C0 /* ModuleDetailsVC */ = {
+			isa = PBXGroup;
+			children = (
 				845DEE8F1E03FF6D00F9B52D /* ModuleStatCell.h */,
 				845DEE901E03FF6D00F9B52D /* ModuleStatCell.m */,
+			);
+			name = ModuleDetailsVC;
+			sourceTree = "<group>";
+		};
+		84937F961E2CA8980024B1C0 /* UpgradesVC */ = {
+			isa = PBXGroup;
+			children = (
 				843A356B1E07ED31000B65FD /* UpgradeCell.h */,
 				843A356C1E07ED31000B65FD /* UpgradeCell.m */,
+			);
+			name = UpgradesVC;
+			sourceTree = "<group>";
+		};
+		84937F971E2CA8A00024B1C0 /* UpgradeDetailsVC */ = {
+			isa = PBXGroup;
+			children = (
 				84571B021E0BBC140022A23B /* UpgradeStatCell.h */,
 				84571B031E0BBC140022A23B /* UpgradeStatCell.m */,
 			);
-			name = Cells;
+			name = UpgradeDetailsVC;
+			sourceTree = "<group>";
+		};
+		84937F981E2CA8B40024B1C0 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8453EECD1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld */,
+				843A1CD81E0CFA7900CDFF9D /* DataManager.h */,
+				843A1CD91E0CFA7900CDFF9D /* DataManager.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		84937F991E2CA8C80024B1C0 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8453EEF71DF68119004668A8 /* ServerManager.h */,
+				8453EEF81DF68119004668A8 /* ServerManager.m */,
+				84F0A3341E137C860084F57A /* ParsingManager.h */,
+				84F0A3351E137C860084F57A /* ParsingManager.m */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		A4497A6EBB29FA190C0DC93D /* Pods */ = {

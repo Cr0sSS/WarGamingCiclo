@@ -15,30 +15,30 @@
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
-+ (DataManager*) sharedManager;
++ (DataManager*)sharedManager;
 
 - (void)saveContext;
 
-- (void) nationWithName:(NSString*)name andID:(NSString*)nationID;
-- (void) shipTypeWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict;
+- (void)nationWithName:(NSString*)name andID:(NSString*)nationID;
+- (void)shipTypeWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict;
 
-- (void) shipWithID:(NSString*)shipID details:(NSDictionary*)dict;
+- (void)shipWithID:(NSString*)shipID details:(NSDictionary*)dict;
 
-- (void) moduleWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
+- (void)moduleWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
 
-- (void) upgradeWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
+- (void)upgradeWithResponse:(NSDictionary*)response forShip:(Ship*)ship;
 
 
-- (NSArray*) getAllEntities:(NSString*)entityName;
+- (NSArray*)getAllEntities:(NSString*)entityName;
 
-- (Nation*) getNationWithID:(NSString*)nationID;
-- (ShipType*) getShipTypeWithID:(NSString*)typeID;
+- (Nation*)getNationWithID:(NSString*)nationID;
+- (ShipType*)getShipTypeWithID:(NSString*)typeID;
 
-- (NSArray*) getShipsForNation:(Nation*)nation orShipType:(ShipType*)type;
+- (NSArray*)getShipsForNation:(Nation*)nation orShipType:(ShipType*)type;
 
-- (NSArray*) getEntities:(NSString*)entityName forShip:(Ship*)ship;
+- (NSArray*)getEntities:(NSString*)entityName forShip:(Ship*)ship;
 
-- (NSArray*) getModuleWithID:(NSString*)moduleID;
-- (NSArray*) getUpgradeWithID:(NSString*)upgradeID;
+- (NSArray*)getModuleWithID:(NSString*)moduleID;
+- (NSArray*)getUpgradeWithID:(NSString*)upgradeID;
 
 @end

@@ -105,7 +105,7 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
-- (void) reloadData {
+- (void)reloadData {
     [[DataManager sharedManager] saveContext];
     self.modulesArray = [[DataManager sharedManager] getEntities:@"Module" forShip:self.ship];
     [self.collectionView reloadData];
@@ -125,7 +125,7 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[self.modulesArray objectAtIndex:section] count];
+    return [self.modulesArray[section] count];
 }
 
 
@@ -133,7 +133,7 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
     
     ModuleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:moduleCellIdentifier forIndexPath:indexPath];
     
-    Module* module = [[self.modulesArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    Module* module = self.modulesArray[indexPath.section][indexPath.row];
     cell.moduleTextLabel.text = module.name;
     
     NSURL* imageURL = [NSURL URLWithString:module.imageString];
@@ -145,14 +145,13 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
     [cell.moduleImageView setImageWithURLRequest:request
                                 placeholderImage:nil
                                          success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                                             
                                              weakCell.moduleImageView.image = image;
                                              [weakCell layoutSubviews];
                                          }
-     
                                          failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                                              NSLog(@"ERROR: Image for module %@ load fail\n%@", module.name, [error localizedDescription]);
     }];
-    
     
     return cell;
 }
@@ -169,7 +168,7 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
     
     ModuleDetailsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ModuleDetailsVC"];
     
-    vc.module = [[self.modulesArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    vc.module = self.modulesArray[indexPath.section][indexPath.row];
     vc.modalPresentationStyle = UIModalPresentationPopover;
     
     UIPopoverPresentationController *popController = vc.popoverPresentationController;
@@ -187,7 +186,8 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller traitCollection:(UITraitCollection *)traitCollection {
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+                                                               traitCollection:(UITraitCollection *)traitCollection {
     return UIModalPresentationNone;
 }
 

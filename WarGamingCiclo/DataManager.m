@@ -21,7 +21,7 @@
 static NSArray* moduleTypes;
 static NSArray* upgradeTypes;
 
-+ (DataManager*) sharedManager {
++ (DataManager*)sharedManager {
     
     static DataManager* manager = nil;
     
@@ -46,7 +46,7 @@ static NSArray* upgradeTypes;
 
 #pragma mark - Creates
 
-- (void) nationWithName:(NSString*)name andID:(NSString*)nationID {
+- (void)nationWithName:(NSString*)name andID:(NSString*)nationID {
     
     Nation* nation = [NSEntityDescription insertNewObjectForEntityForName:@"Nation"
                                                    inManagedObjectContext:self.persistentContainer.viewContext];
@@ -56,7 +56,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (void) shipTypeWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict {
+- (void)shipTypeWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict {
     
     ShipType* type = [NSEntityDescription insertNewObjectForEntityForName:@"ShipType"
                                                    inManagedObjectContext:self.persistentContainer.viewContext];
@@ -67,7 +67,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (void) shipWithID:(NSString*)shipID details:(NSDictionary*)dict {
+- (void)shipWithID:(NSString*)shipID details:(NSDictionary*)dict {
     
     Ship* ship = [NSEntityDescription insertNewObjectForEntityForName:@"Ship"
                                                    inManagedObjectContext:self.persistentContainer.viewContext];
@@ -77,7 +77,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (void) moduleWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
+- (void)moduleWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
     
     Module* module = [NSEntityDescription insertNewObjectForEntityForName:@"Module"
                                                    inManagedObjectContext:self.persistentContainer.viewContext];
@@ -86,7 +86,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (void) upgradeWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
+- (void)upgradeWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
     
     Upgrade* upgrade = [NSEntityDescription insertNewObjectForEntityForName:@"Upgrade"
                                                      inManagedObjectContext:self.persistentContainer.viewContext];
@@ -98,7 +98,7 @@ static NSArray* upgradeTypes;
 
 #pragma mark - Gets
 
-- (NSArray*) getAllEntities:(NSString*)entityName {
+- (NSArray*)getAllEntities:(NSString*)entityName {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:entityName
@@ -115,7 +115,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (NSArray*) getShipsForNation:(Nation*)nation orShipType:(ShipType*)type {
+- (NSArray*)getShipsForNation:(Nation*)nation orShipType:(ShipType*)type {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:@"Ship"
@@ -144,7 +144,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (Nation*) getNationWithID:(NSString*)nationID {
+- (Nation*)getNationWithID:(NSString*)nationID {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:@"Nation"
@@ -161,7 +161,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (ShipType*) getShipTypeWithID:(NSString*)typeID {
+- (ShipType*)getShipTypeWithID:(NSString*)typeID {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:@"ShipType"
@@ -178,7 +178,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (NSArray*) getEntities:(NSString*)entityName forShip:(Ship*)ship {
+- (NSArray*)getEntities:(NSString*)entityName forShip:(Ship*)ship {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:entityName
@@ -219,7 +219,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (NSArray*) getModuleWithID:(NSString*)moduleID {
+- (NSArray*)getModuleWithID:(NSString*)moduleID {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:@"Module"
@@ -235,7 +235,7 @@ static NSArray* upgradeTypes;
 }
 
 
-- (NSArray*) getUpgradeWithID:(NSString*)upgradeID {
+- (NSArray*)getUpgradeWithID:(NSString*)upgradeID {
     
     NSFetchRequest* request = [[NSFetchRequest alloc] init];
     NSEntityDescription* entity = [NSEntityDescription entityForName:@"Upgrade"

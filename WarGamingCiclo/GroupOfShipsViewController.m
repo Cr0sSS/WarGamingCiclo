@@ -39,11 +39,10 @@ static NSDictionary* typeNames;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        typeNames = [NSDictionary dictionaryWithObjectsAndKeys:
-                     @"Крейсеры", @"Cruiser",
-                     @"Авианосцы", @"AirCarrier",
-                     @"Линкоры", @"Battleship",
-                     @"Эсминцы", @"Destroyer", nil];
+        typeNames = @{@"Cruiser" : @"Крейсеры",
+                      @"AirCarrier" : @"Авианосцы",
+                      @"Battleship" : @"Линкоры",
+                      @"Destroyer" : @"Эсминцы"};
     });
     
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
@@ -51,8 +50,8 @@ static NSDictionary* typeNames;
     if (self.nation) {
         self.navigationItem.title = self.nation.name;
         
-    } else if (self.shipType){
-        self.navigationItem.title = [typeNames objectForKey:self.shipType.typeID];
+    } else if (self.shipType) {
+        self.navigationItem.title = typeNames[self.shipType.typeID];
     }
     
     KTCenterFlowLayout* layout = [KTCenterFlowLayout new];
@@ -70,8 +69,8 @@ static NSDictionary* typeNames;
                          nation:self.nation.nationID
                       onSuccess:^(NSDictionary* responseObject) {
                           
-                          NSDictionary* response = [responseObject objectForKey:@"data"];
-                          NSInteger count = [[[responseObject objectForKey:@"meta"] objectForKey:@"count"] integerValue];
+                          NSDictionary* response = responseObject[@"data"];
+                          NSInteger count = [responseObject[@"meta"][@"count"] integerValue];
                           
                           if (!([self.shipsArray count] == count)) {
                               NSMutableDictionary* newShips = [[NSMutableDictionary alloc] initWithDictionary:response];
@@ -83,7 +82,7 @@ static NSDictionary* typeNames;
                                   if (![ship.refreshDate isEqual:[ServerManager sharedManager].currentDate]) {
                                       [[ParsingManager sharedManager] ship:ship
                                                                 fillWithID:ship.shipID
-                                                                   details:[response valueForKey:ship.shipID]];
+                                                                   details:response[ship.shipID]];
                                       
                                       NSLog(@"%@ был обновлен в основе", ship.name);
                                   }
@@ -94,8 +93,8 @@ static NSDictionary* typeNames;
                               NSArray* shipsDetails = [newShips allValues];
                               
                               for (NSInteger i = 0; i < [shipsIDs count]; i++) {
-                                  [[DataManager sharedManager] shipWithID:[shipsIDs objectAtIndex:i]
-                                                                  details:[shipsDetails objectAtIndex:i]];
+                                  [[DataManager sharedManager] shipWithID:shipsIDs[i]
+                                                                  details:shipsDetails[i]];
                               }
                               
                               [[DataManager sharedManager] saveContext];
@@ -133,7 +132,7 @@ static NSDictionary* typeNames;
     
     ShipGroupCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    Ship* ship = [self.shipsArray objectAtIndex:indexPath.row];
+    Ship* ship = self.shipsArray[indexPath.row];
     cell.shipName.text = ship.name;
     
     __weak ShipGroupCell* weakCell = cell;
@@ -192,7 +191,7 @@ static NSDictionary* typeNames;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     ShipDetailsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShipDetailsVC"];
-    vc.ship = [self.shipsArray objectAtIndex:indexPath.row];
+    vc.ship = self.shipsArray[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

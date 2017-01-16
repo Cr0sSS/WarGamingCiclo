@@ -19,7 +19,7 @@
 
 @implementation ParsingManager
 
-+ (ParsingManager*) sharedManager {
++ (ParsingManager*)sharedManager {
     
     static ParsingManager* manager = nil;
     
@@ -34,7 +34,7 @@
 
 #pragma mark - Nation
 
-- (void) nation:(Nation*)nation fillWithName:(NSString*)name andID:(NSString*)nationID {
+- (void)nation:(Nation*)nation fillWithName:(NSString*)name andID:(NSString*)nationID {
     
     nation.nationID = nationID;
     nation.name = name;
@@ -44,51 +44,51 @@
 
 #pragma mark - ShipType
 
-- (void) shipType:(ShipType*)type fillWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict {
+- (void)shipType:(ShipType*)type fillWithID:(NSString*)typeID name:(NSString*)name imagesDict:(NSDictionary*)imagesDict {
     
     type.typeID = typeID;
     type.name = name;
     type.refreshDate = [ServerManager sharedManager].currentDate;
     
     if (imagesDict) {
-        type.imageString = [imagesDict objectForKey:@"image"];
-        type.premiumImageString = [imagesDict objectForKey:@"image_premium"];
-        type.eliteImageString = [imagesDict objectForKey:@"image_elite"];
+        type.imageString = imagesDict[@"image"];
+        type.premiumImageString = imagesDict[@"image_premium"];
+        type.eliteImageString = imagesDict[@"image_elite"];
     }
 }
 
 
 #pragma mark - Ship
 
-- (void) ship:(Ship*)ship fillWithID:(NSString*)shipID details:(NSDictionary*)dict {
+- (void)ship:(Ship*)ship fillWithID:(NSString*)shipID details:(NSDictionary*)dict {
     
     ship.shipID = shipID;
-    ship.name = [dict objectForKey:@"name"];
+    ship.name = dict[@"name"];
     
-    ship.type = [[DataManager sharedManager] getShipTypeWithID:[dict objectForKey:@"type"]];
-    ship.nation = [[DataManager sharedManager] getNationWithID:[dict objectForKey:@"nation"]];
+    ship.type = [[DataManager sharedManager] getShipTypeWithID:dict[@"type"]];
+    ship.nation = [[DataManager sharedManager] getNationWithID:dict[@"nation"]];
     
-    ship.tier = [[dict objectForKey:@"tier"] integerValue];
-    ship.isPremium = [[dict objectForKey:@"is_premium"] boolValue];
+    ship.tier = [dict[@"tier"] integerValue];
+    ship.isPremium = [dict[@"is_premium"] boolValue];
     
-    NSDictionary* images = [dict objectForKey:@"images"];
+    NSDictionary* images = dict[@"images"];
     
-    ship.contourImageString = [images objectForKey:@"contour"];
-    ship.smallImageString = [images objectForKey:@"small"];
-    ship.mediumImageString = [images objectForKey:@"medium"];
-    ship.largeImageString = [images objectForKey:@"large"];
+    ship.contourImageString = images[@"contour"];
+    ship.smallImageString = images[@"small"];
+    ship.mediumImageString = images[@"medium"];
+    ship.largeImageString = images[@"large"];
     
     ship.refreshDate = [ServerManager sharedManager].currentDate;
 }
 
 
-- (void) ship:(Ship*)ship parseFullDetailResponse:(NSDictionary*)dict {
+- (void)ship:(Ship*)ship parseFullDetailResponse:(NSDictionary*)dict {
     
-    ship.modSlots = [[dict objectForKey:@"mod_slots"] integerValue];
-    ship.review = [dict objectForKey:@"description"];
+    ship.modSlots = [dict[@"mod_slots"] integerValue];
+    ship.review = dict[@"description"];
     
     //// ID всех модулей корабля
-    NSArray* moduleGroups = [[dict objectForKey:@"modules"] allValues];
+    NSArray* moduleGroups = [dict[@"modules"] allValues];
     NSMutableArray* moduleIDs = [NSMutableArray new];
     
     for (NSArray* group in moduleGroups) {
@@ -102,7 +102,7 @@
     
     
     //// ID всех апгрейдов корабля
-    NSArray* upgrades = [dict objectForKey:@"upgrades"];
+    NSArray* upgrades = dict[@"upgrades"];
     NSMutableArray* upgradeStrings = [NSMutableArray new];
     
     for (id upgradeID in upgrades) {
@@ -112,10 +112,10 @@
     ship.upgradeIDs = [NSKeyedArchiver archivedDataWithRootObject:upgradeStrings];
     
     
-    NSDictionary* defaultProfile = [dict objectForKey:@"default_profile"];
+    NSDictionary* defaultProfile = dict[@"default_profile"];
     
-    ship.battleRangeMin = [[defaultProfile objectForKey:@"battle_level_range_min"] integerValue];
-    ship.battleRangeMax = [[defaultProfile objectForKey:@"battle_level_range_max"] integerValue];
+    ship.battleRangeMin = [defaultProfile[@"battle_level_range_min"] integerValue];
+    ship.battleRangeMax = [defaultProfile[@"battle_level_range_max"] integerValue];
     
     //// Секция "Основные характеристики"
     NSArray* mainStatsArray = [NSArray arrayWithArray:[self parseMainStats:dict ofShip:ship]];
@@ -123,7 +123,7 @@
     
     
     //// Секция "Маневренность"
-    NSDictionary* mobility = [defaultProfile objectForKey:@"mobility"];
+    NSDictionary* mobility = defaultProfile[@"mobility"];
     
     if (![mobility isKindOfClass:[NSNull class]]) {
         
@@ -133,7 +133,7 @@
     
     
     //// Секция "Маскировка"
-    NSDictionary* concealment = [defaultProfile objectForKey:@"concealment"];
+    NSDictionary* concealment = defaultProfile[@"concealment"];
     
     if (![concealment isKindOfClass:[NSNull class]]) {
         
@@ -143,7 +143,7 @@
     
     
     //// Секция "ПВО"
-    NSDictionary* antiAircraft = [defaultProfile objectForKey:@"anti_aircraft"];
+    NSDictionary* antiAircraft = defaultProfile[@"anti_aircraft"];
     
     if (![antiAircraft isKindOfClass:[NSNull class]]) {
         
@@ -153,7 +153,7 @@
     
     
     //// Секция "Торпедное вооружение"
-    NSDictionary* torpedoes = [defaultProfile objectForKey:@"torpedoes"];
+    NSDictionary* torpedoes = defaultProfile[@"torpedoes"];
     
     if (![torpedoes isKindOfClass:[NSNull class]]) {
         
@@ -171,7 +171,7 @@
     
     
     //// Секция "Главный калибр"
-    NSDictionary* artillery = [defaultProfile objectForKey:@"artillery"];
+    NSDictionary* artillery = defaultProfile[@"artillery"];
     
     if (![artillery isKindOfClass:[NSNull class]]) {
         
@@ -181,7 +181,7 @@
     
     
     //// Секция "Вспомогательный калибр"
-    NSDictionary* atbas = [defaultProfile objectForKey:@"atbas"];
+    NSDictionary* atbas = defaultProfile[@"atbas"];
     
     if (![atbas isKindOfClass:[NSNull class]]) {
         
@@ -193,14 +193,14 @@
 }
 
 
-- (NSMutableArray*) parseMainStats:(NSDictionary*)dict ofShip:(Ship*)ship {
+- (NSMutableArray*)parseMainStats:(NSDictionary*)dict ofShip:(Ship*)ship {
     
-    NSDictionary* defaultProfile = [dict objectForKey:@"default_profile"];
+    NSDictionary* defaultProfile = dict[@"default_profile"];
     
     NSMutableArray* mainStatsArray = [NSMutableArray new];
     
-    NSDictionary* hull = [defaultProfile objectForKey:@"hull"];
-    NSDictionary* armour = [defaultProfile objectForKey:@"armour"];
+    NSDictionary* hull = defaultProfile[@"hull"];
+    NSDictionary* armour = defaultProfile[@"armour"];
     
     
     [mainStatsArray addObject:@"Стоимость исследования"];
@@ -209,18 +209,18 @@
         [mainStatsArray addObject:@"премиумный"];
         
     } else {
-        [mainStatsArray addObject:@"неизвестна"]; // стоимость для исследуемой техники не выдается через API
+        [mainStatsArray addObject:@"неизвестна"]; // стоимость исследования техники не выдается через API (16.01.2017)
     }
     
     
     [mainStatsArray addObject:@"Цена покупки"];
     
     if (ship.isPremium) {
-        NSString* price = [dict objectForKey:@"price_gold"];
+        NSString* price = dict[@"price_gold"];
         [mainStatsArray addObject:[NSString stringWithFormat:@"%@ золота", price]];
         
     } else {
-        NSString* price = [dict objectForKey:@"price_credit"];
+        NSString* price = [dict[@"price_credit"] stringValue];
         
         if ([price isEqual:@"0"]) {
             [mainStatsArray addObject:@"неизвестна"];
@@ -235,7 +235,7 @@
     
     
     [mainStatsArray addObject:@"Боеспособность(здоровье)"];
-    NSInteger healh = [[hull objectForKey:@"health"] integerValue];
+    NSInteger healh = [hull[@"health"] integerValue];
     [mainStatsArray addObject:[NSString stringWithFormat:@"%ld", healh]];
     
     
@@ -252,37 +252,37 @@
                                 @"extremities"];
     
     for (NSInteger i = 0; i < [armourPartNames count]; i++) {
-        [mainStatsArray addObject:[armourPartNames objectAtIndex:i]];
+        [mainStatsArray addObject:armourPartNames[i]];
         
-        NSDictionary* armourPart = [armour objectForKey:[armourPartKeys objectAtIndex:i]];
+        NSDictionary* armourPart = armour[armourPartKeys[i]];
         [mainStatsArray addObject:[self armourRelease:armourPart]];
     }
     
     
     [mainStatsArray addObject:@"Снижение вероятности затопления"];
-    NSString* floodProb = [self checkForNull:[armour objectForKey:@"flood_prob"]];
+    NSString* floodProb = [self checkForNull:armour[@"flood_prob"]];
     [mainStatsArray addObject:[NSString stringWithFormat:@"%@%%", floodProb]];
     
     
     [mainStatsArray addObject:@"Снижение урона от затопления"];
-    NSString* floodDamage = [self checkForNull:[armour objectForKey:@"flood_damage"]];
+    NSString* floodDamage = [self checkForNull:armour[@"flood_damage"]];
     [mainStatsArray addObject:[NSString stringWithFormat:@"%@%%", floodDamage]];
     
     return mainStatsArray;
 }
 
 
-- (NSMutableArray*) parseMobility:(NSDictionary*)mobility {
+- (NSMutableArray*)parseMobility:(NSDictionary*)mobility {
     
     NSMutableArray* mobilityArray = [NSMutableArray new];
     
     [mobilityArray addObject:@"Показатель маневренности"];
-    NSString* total = [self checkForNull:[mobility objectForKey:@"total"]];
+    NSString* total = [self checkForNull:mobility[@"total"]];
     [mobilityArray addObject:[NSString stringWithFormat:@"%@%%", total]];
     
     
     [mobilityArray addObject:@"Максимальная скорость"];
-    NSString* speedValue = [self checkForNull:[mobility objectForKey:@"max_speed"]];
+    NSString* speedValue = [self checkForNull:mobility[@"max_speed"]];
     
     if ([speedValue isEqual:@"NA"]) {
         [mobilityArray addObject:speedValue];
@@ -294,7 +294,7 @@
     
     
     [mobilityArray addObject:@"Время перекладки руля"];
-    NSString* rudderValue = [self checkForNull:[mobility objectForKey:@"rudder_time"]];
+    NSString* rudderValue = [self checkForNull:mobility[@"rudder_time"]];
     
     if ([rudderValue isEqual:@"NA"]) {
         [mobilityArray addObject:rudderValue];
@@ -306,33 +306,33 @@
     
     
     [mobilityArray addObject:@"Радиус разворота"];
-    NSString* radius = [self checkForNull:[mobility objectForKey:@"turning_radius"]];
+    NSString* radius = [self checkForNull:mobility[@"turning_radius"]];
     [mobilityArray addObject:[NSString stringWithFormat:@"%@ м", radius]];
     
     return mobilityArray;
 }
 
 
-- (NSMutableArray*) parseTorpedoes:(NSDictionary*)torpedoes {
+- (NSMutableArray*)parseTorpedoes:(NSDictionary*)torpedoes {
     
     NSMutableArray* torpedoesArray = [NSMutableArray new];
-    NSArray* slots = [[torpedoes objectForKey:@"slots"] allObjects];
+    NSArray* slots = [torpedoes[@"slots"] allObjects];
     
     NSInteger torpedoGuns = 0;
     NSInteger torpedoBarrels = 0;
     
     
     for (NSDictionary* slot in slots) {
-        NSInteger gunsInSlot = [[slot objectForKey:@"guns"] integerValue];
+        NSInteger gunsInSlot = [slot[@"guns"] integerValue];
         torpedoGuns = torpedoGuns + gunsInSlot;
-        torpedoBarrels = torpedoBarrels + [[slot objectForKey:@"barrels"] integerValue] * gunsInSlot;
+        torpedoBarrels = torpedoBarrels + [slot[@"barrels"] integerValue] * gunsInSlot;
     }
     
-    [torpedoesArray addObject:[torpedoes objectForKey:@"torpedo_name"]];
+    [torpedoesArray addObject:torpedoes[@"torpedo_name"]];
     [torpedoesArray addObject:[NSString stringWithFormat:@"Установки: %ld; всего труб: %ld", torpedoGuns, torpedoBarrels]];
     
     
-    NSString* reloadTimeString = [self checkForNull:[torpedoes objectForKey:@"reload_time"]];
+    NSString* reloadTimeString = [self checkForNull:torpedoes[@"reload_time"]];
     [torpedoesArray addObject:@"Скорострельность"];
     
     if ([reloadTimeString isEqual:@"NA"]) {
@@ -348,7 +348,7 @@
     [torpedoesArray addObject:[NSString stringWithFormat:@"%@ сек", reloadTimeString]];
     
     
-    NSString* rotationTimeString = [self checkForNull:[torpedoes objectForKey:@"rotation_time"]];
+    NSString* rotationTimeString = [self checkForNull:torpedoes[@"rotation_time"]];
     [torpedoesArray addObject:@"Скорость горизонтальной наводки"];
     
     if ([rotationTimeString isEqual:@"NA"]) {
@@ -374,28 +374,28 @@
     for (NSDictionary* slot in slots) {
         
         [torpedoesArray addObject:@"Торпеда"];
-        NSString* name = [self checkForNull:[slot objectForKey:@"name"]];
+        NSString* name = [self checkForNull:slot[@"name"]];
         [torpedoesArray addObject:name];
         
         
         [torpedoesArray addObject:@"Калибр"];
-        NSString* caliber = [self checkForNull:[slot objectForKey:@"caliber"]];
+        NSString* caliber = [self checkForNull:slot[@"caliber"]];
         [torpedoesArray addObject:[NSString stringWithFormat:@"%@ мм", caliber]];
     }
     
     
     [torpedoesArray addObject:@"Максимальный урон"];
-    NSString* damage = [self checkForNull:[torpedoes objectForKey:@"max_damage"]];
+    NSString* damage = [self checkForNull:torpedoes[@"max_damage"]];
     [torpedoesArray addObject:damage];
     
     
     [torpedoesArray addObject:@"Скорость хода торпед"];
-    NSString* speed = [self checkForNull:[torpedoes objectForKey:@"torpedo_speed"]];
+    NSString* speed = [self checkForNull:torpedoes[@"torpedo_speed"]];
     [torpedoesArray addObject:[NSString stringWithFormat:@"%@ уз", speed]];
     
     
     [torpedoesArray addObject:@"Дальность хода торпед"];
-    NSString* distanceString = [self checkForNull:[torpedoes objectForKey:@"distance"]];
+    NSString* distanceString = [self checkForNull:torpedoes[@"distance"]];
     
     if ([distanceString isEqual:@"NA"]) {
         [torpedoesArray addObject:distanceString];
@@ -407,7 +407,7 @@
     
     
     [torpedoesArray addObject:@"Дальность обнаружения торпед"];
-    NSString* visDistanceString = [self checkForNull:[torpedoes objectForKey:@"visibility_dist"]];
+    NSString* visDistanceString = [self checkForNull:torpedoes[@"visibility_dist"]];
     
     if ([visDistanceString isEqual:@"NA"]) {
         [torpedoesArray addObject:visDistanceString];
@@ -421,40 +421,40 @@
 }
 
 
-- (NSMutableArray*) parseAirGroup:(NSDictionary*)defaultProfile {
+- (NSMutableArray*)parseAirGroup:(NSDictionary*)defaultProfile {
     
     NSMutableArray* airGroupArray = [NSMutableArray new];
     
     [airGroupArray addObject:@"Вместимость ангара"];
-    NSString* planesCount = [self checkForNull:[[defaultProfile objectForKey:@"hull"] objectForKey:@"planes_amount"]];
+    NSString* planesCount = [self checkForNull:defaultProfile[@"hull"][@"planes_amount"]];
     [airGroupArray addObject:[NSString stringWithFormat:@"%@ шт", planesCount]];
     
     
-    NSDictionary* fighters = [defaultProfile objectForKey:@"fighters"];
+    NSDictionary* fighters = defaultProfile[@"fighters"];
     if (![fighters isKindOfClass:[NSNull class]]) {
         
         [airGroupArray addObject:@"Истребители"];
-        [airGroupArray addObject:[self checkHardTextForNull:[fighters objectForKey:@"name"]]];
+        [airGroupArray addObject:[self checkHardTextForNull:fighters[@"name"]]];
         
         [airGroupArray addObjectsFromArray:[self parcePlaneType:fighters]];
     }
     
     
-    NSDictionary* torpedoBombers = [defaultProfile objectForKey:@"torpedo_bomber"];
+    NSDictionary* torpedoBombers = defaultProfile[@"torpedo_bomber"];
     if (![torpedoBombers isKindOfClass:[NSNull class]]) {
         
         [airGroupArray addObject:@"Торпедоносцы"];
-        [airGroupArray addObject:[self checkHardTextForNull:[torpedoBombers objectForKey:@"name"]]];
+        [airGroupArray addObject:[self checkHardTextForNull:torpedoBombers[@"name"]]];
         
         [airGroupArray addObjectsFromArray:[self parcePlaneType:torpedoBombers]];
     }
     
     
-    NSDictionary* diveBombers = [defaultProfile objectForKey:@"torpedo_bomber"];
+    NSDictionary* diveBombers = defaultProfile[@"torpedo_bomber"];
     if (![diveBombers isKindOfClass:[NSNull class]]) {
         
         [airGroupArray addObject:@"Бомбардировщики"];
-        [airGroupArray addObject:[self checkHardTextForNull:[diveBombers objectForKey:@"name"]]];
+        [airGroupArray addObject:[self checkHardTextForNull:diveBombers[@"name"]]];
         
         [airGroupArray addObjectsFromArray:[self parcePlaneType:diveBombers]];
     }
@@ -463,17 +463,17 @@
 }
 
 
-- (NSMutableArray*) parseConcealment:(NSDictionary*)concealment {
+- (NSMutableArray*)parseConcealment:(NSDictionary*)concealment {
     
     NSMutableArray* concealmentArray = [NSMutableArray new];
     
     [concealmentArray addObject:@"Показатель маскировки"];
-    NSString* total = [self checkForNull:[concealment objectForKey:@"total"]];
+    NSString* total = [self checkForNull:concealment[@"total"]];
     [concealmentArray addObject:[NSString stringWithFormat:@"%@%%", total]];
     
     
     [concealmentArray addObject:@"Дальность обнаружения с кораблей"];
-    NSString* distanceShipValue = [self checkForNull:[concealment objectForKey:@"detect_distance_by_ship"]];
+    NSString* distanceShipValue = [self checkForNull:concealment[@"detect_distance_by_ship"]];
     
     if ([distanceShipValue isEqual:@"NA"]) {
         [concealmentArray addObject:distanceShipValue];
@@ -485,7 +485,7 @@
     
     
     [concealmentArray addObject:@"Дальность обнаружения с самолетов"];
-    NSString* distancePlaneValue = [self checkForNull:[concealment objectForKey:@"detect_distance_by_plane"]];
+    NSString* distancePlaneValue = [self checkForNull:concealment[@"detect_distance_by_plane"]];
     
     if ([distancePlaneValue isEqual:@"NA"]) {
         [concealmentArray addObject:distancePlaneValue];
@@ -499,22 +499,22 @@
 }
 
 
-- (NSMutableArray*) parseMainBattery:(NSDictionary*)artillery {
+- (NSMutableArray*)parseMainBattery:(NSDictionary*)artillery {
     
     NSMutableArray* mainBatteryArray = [NSMutableArray new];
     
-    NSArray* artillerySlots = [[artillery objectForKey:@"slots"] allObjects];
+    NSArray* artillerySlots = [artillery[@"slots"] allObjects];
     for (NSDictionary* slot in artillerySlots) {
         
-        [mainBatteryArray addObject:[slot objectForKey:@"name"]];
-        NSString* slotsGuns = [[slot objectForKey:@"guns"] stringValue];
-        NSString* slotsBarrels = [[slot objectForKey:@"barrels"] stringValue];
+        [mainBatteryArray addObject:slot[@"name"]];
+        NSString* slotsGuns = [slot[@"guns"] stringValue];
+        NSString* slotsBarrels = [slot[@"barrels"] stringValue];
         [mainBatteryArray addObject:[NSString stringWithFormat:@"Установки: %@; стволов в каждой: %@", slotsGuns, slotsBarrels]];
     }
     
     
     [mainBatteryArray addObject:@"Скорострельность"];
-    NSString* rofValue = [self checkForNull:[artillery objectForKey:@"gun_rate"]];
+    NSString* rofValue = [self checkForNull:artillery[@"gun_rate"]];
     
     if ([rofValue isEqual:@"NA"]) {
         [mainBatteryArray addObject:rofValue];
@@ -526,7 +526,7 @@
     
     
     [mainBatteryArray addObject:@"Дальность стрельбы"];
-    NSString* distanceValue = [self checkForNull:[artillery objectForKey:@"distance"]];
+    NSString* distanceValue = [self checkForNull:artillery[@"distance"]];
     
     if ([distanceValue isEqual:@"NA"]) {
         [mainBatteryArray addObject:distanceValue];
@@ -538,7 +538,7 @@
     
     
     [mainBatteryArray addObject:@"Время перезарядки"];
-    NSString* reloadValue = [self checkForNull:[artillery objectForKey:@"shot_delay"]];
+    NSString* reloadValue = [self checkForNull:artillery[@"shot_delay"]];
     
     if ([reloadValue isEqual:@"NA"]) {
         [mainBatteryArray addObject:reloadValue];
@@ -550,12 +550,12 @@
     
     
     [mainBatteryArray addObject:@"Время поворота на 180 градусов"];
-    NSString* rotationTime = [self checkForNull:[artillery objectForKey:@"rotation_time"]];
+    NSString* rotationTime = [self checkForNull:artillery[@"rotation_time"]];
     [mainBatteryArray addObject:[NSString stringWithFormat:@"%@ сек", rotationTime]];
     
     
     [mainBatteryArray addObject:@"Скорость горизонтального наведения"];
-    NSString* gunRate = [self checkForNull:[artillery objectForKey:@"gun_rate"]];
+    NSString* gunRate = [self checkForNull:artillery[@"gun_rate"]];
     
     if ([gunRate isEqual:@"NA"]) {
         [mainBatteryArray addObject:gunRate];
@@ -567,44 +567,45 @@
     
     
     [mainBatteryArray addObject:@"Максимальное рассеивание"];
-    NSString* dispersion = [self checkForNull:[artillery objectForKey:@"max_dispersion"]];
+    NSString* dispersion = [self checkForNull:artillery[@"max_dispersion"]];
     [mainBatteryArray addObject:[NSString stringWithFormat:@"%@ м", dispersion]];
     
     
-    NSArray* shellsArray = [[artillery objectForKey:@"shells"] allObjects];
+    NSArray* shellsArray = [artillery[@"shells"] allObjects];
     
     for (NSDictionary* shell in shellsArray) {
         NSString* shellType;
         
         if (shell && ![shell isKindOfClass:[NSNull class]]) {
-            if ([[shell objectForKey:@"type"] isEqual:@"AP"]) {
+            if ([shell[@"type"] isEqual:@"AP"]) {
                 shellType = @"ББ";
-            } else if ([[shell objectForKey:@"type"] isEqual:@"HE"]) {
+                
+            } else if ([shell[@"type"] isEqual:@"HE"]) {
                 shellType = @"ОФ";
             }
             
             [mainBatteryArray addObject:[NSString stringWithFormat:@"%@ снаряд", shellType]];
-            NSString* shellName = [self checkForNull:[shell objectForKey:@"name"]];
+            NSString* shellName = [self checkForNull:shell[@"name"]];
             [mainBatteryArray addObject:shellName];
             
             
             [mainBatteryArray addObject:[NSString stringWithFormat:@"Максимальный урон %@ снаряда", shellType]];
-            NSString* shellDamage = [self checkForNull:[shell objectForKey:@"damage"]];
+            NSString* shellDamage = [self checkForNull:shell[@"damage"]];
             [mainBatteryArray addObject:shellDamage];
             
             
             [mainBatteryArray addObject:[NSString stringWithFormat:@"Вероятность пожара от %@ снаряда", shellType]];
-            NSString* shellBurn = [self checkForNull:[shell objectForKey:@"burn_probability"]];
+            NSString* shellBurn = [self checkForNull:shell[@"burn_probability"]];
             [mainBatteryArray addObject:[NSString stringWithFormat:@"%@%%", shellBurn]];
             
             
             [mainBatteryArray addObject:[NSString stringWithFormat:@"Начальная скорость %@ снаряда", shellType]];
-            NSString* shellSpeed = [self checkForNull:[shell objectForKey:@"bullet_speed"]];
+            NSString* shellSpeed = [self checkForNull:shell[@"bullet_speed"]];
             [mainBatteryArray addObject:[NSString stringWithFormat:@"%@ м/сек", shellSpeed]];
             
             
             [mainBatteryArray addObject:[NSString stringWithFormat:@"Масса %@ снаряда", shellType]];
-            NSString* shellMass = [self checkForNull:[shell objectForKey:@"bullet_mass"]];
+            NSString* shellMass = [self checkForNull:shell[@"bullet_mass"]];
             [mainBatteryArray addObject:[NSString stringWithFormat:@"%@ кг", shellMass]];
         }
     }
@@ -612,18 +613,18 @@
 }
 
 
-- (NSMutableArray*) parseAdditionalBattery:(NSDictionary*)atbas {
+- (NSMutableArray*)parseAdditionalBattery:(NSDictionary*)atbas {
     
     NSMutableArray* additionalBatteryArray = [NSMutableArray new];
     
-    NSArray* artillerySlots = [[atbas objectForKey:@"slots"] allObjects];
+    NSArray* artillerySlots = [atbas[@"slots"] allObjects];
     
     for (NSDictionary* slot in artillerySlots) {
         
         NSMutableArray* battery = [NSMutableArray new];
         
         [battery addObject:@"Дальность стрельбы"];
-        NSString* distanceValue = [self checkForNull:[atbas objectForKey:@"distance"]];
+        NSString* distanceValue = [self checkForNull:atbas[@"distance"]];
         
         if ([distanceValue isEqual:@"NA"]) {
             [battery addObject:distanceValue];
@@ -635,7 +636,7 @@
         
         
         [battery addObject:@"Скорость горизонтального наведения"];
-        NSString* gunRate = [self checkForNull:[slot objectForKey:@"gun_rate"]];
+        NSString* gunRate = [self checkForNull:slot[@"gun_rate"]];
         
         if ([gunRate isEqual:@"NA"]) {
             [battery addObject:gunRate];
@@ -647,7 +648,7 @@
         
         
         [battery addObject:@"Время перезарядки"];
-        NSString* reloadValue = [self checkForNull:[slot objectForKey:@"shot_delay"]];
+        NSString* reloadValue = [self checkForNull:slot[@"shot_delay"]];
         
         if ([reloadValue isEqual:@"NA"]) {
             [battery addObject:reloadValue];
@@ -658,34 +659,35 @@
         }
         
         NSString* shellType;
-        if ([[slot objectForKey:@"type"] isEqual:@"AP"]) {
+        if ([slot[@"type"] isEqual:@"AP"]) {
             shellType = @"ББ";
-        } else if ([[slot objectForKey:@"type"] isEqual:@"HE"]) {
+            
+        } else if ([slot[@"type"] isEqual:@"HE"]) {
             shellType = @"ОФ";
         }
         
         [battery addObject:[NSString stringWithFormat:@"%@ снаряд", shellType]];
-        NSString* shellName = [self checkForNull:[slot objectForKey:@"name"]];
+        NSString* shellName = [self checkForNull:slot[@"name"]];
         [battery addObject:shellName];
         
         
         [battery addObject:[NSString stringWithFormat:@"Максимальный урон %@ снаряда", shellType]];
-        NSString* shellDamage = [self checkForNull:[slot objectForKey:@"damage"]];
+        NSString* shellDamage = [self checkForNull:slot[@"damage"]];
         [battery addObject:shellDamage];
         
         
         [battery addObject:[NSString stringWithFormat:@"Вероятность пожара от %@ снаряда", shellType]];
-        NSString* shellBurn = [self checkForNull:[slot objectForKey:@"burn_probability"]];
+        NSString* shellBurn = [self checkForNull:slot[@"burn_probability"]];
         [battery addObject:[NSString stringWithFormat:@"%@%%", shellBurn]];
         
         
         [battery addObject:[NSString stringWithFormat:@"Начальная скорость %@ снаряда", shellType]];
-        NSString* shellSpeed = [self checkForNull:[slot objectForKey:@"bullet_speed"]];
+        NSString* shellSpeed = [self checkForNull:slot[@"bullet_speed"]];
         [battery addObject:[NSString stringWithFormat:@"%@ м/сек", shellSpeed]];
         
         
         [battery addObject:[NSString stringWithFormat:@"Масса %@ снаряда", shellType]];
-        NSString* shellMass = [self checkForNull:[slot objectForKey:@"bullet_mass"]];
+        NSString* shellMass = [self checkForNull:slot[@"bullet_mass"]];
         [battery addObject:[NSString stringWithFormat:@"%@ кг", shellMass]];
         
         [additionalBatteryArray addObject:battery];
@@ -695,35 +697,35 @@
 }
 
 
-- (NSMutableArray*) parseAntiAircraft:(NSDictionary*)antiAircraft {
+- (NSMutableArray*)parseAntiAircraft:(NSDictionary*)antiAircraft {
     
     NSMutableArray* antiAircraftArray = [NSMutableArray new];
     
     [antiAircraftArray addObject:@"Эффективность ПВО"];
-    NSString* defenseValue = [self checkForNull:[antiAircraft objectForKey:@"defense"]];
+    NSString* defenseValue = [self checkForNull:antiAircraft[@"defense"]];
     [antiAircraftArray addObject:[NSString stringWithFormat:@"%@%%", defenseValue]];
     
     
-    NSArray* slots = [[antiAircraft objectForKey:@"slots"] allValues];
+    NSArray* slots = [antiAircraft[@"slots"] allValues];
     for (NSDictionary* slot in slots) {
         
-        [antiAircraftArray addObject:[slot objectForKey:@"name"]];
-        NSString* guns = [self checkForNull:[slot objectForKey:@"guns"]];
+        [antiAircraftArray addObject:slot[@"name"]];
+        NSString* guns = [self checkForNull:slot[@"guns"]];
         [antiAircraftArray addObject:[NSString stringWithFormat:@"%@ шт", guns]];
         
         
         [antiAircraftArray addObject:@"....калибр"];
-        NSString* caliber = [self checkForNull:[slot objectForKey:@"caliber"]];
+        NSString* caliber = [self checkForNull:slot[@"caliber"]];
         [antiAircraftArray addObject:[NSString stringWithFormat:@"%@ мм", caliber]];
         
         
         [antiAircraftArray addObject:@"....средний урон в секунду"];
-        NSString* damage = [self checkForNull:[slot objectForKey:@"avg_damage"]];
+        NSString* damage = [self checkForNull:slot[@"avg_damage"]];
         [antiAircraftArray addObject:damage];
         
         
         [antiAircraftArray addObject:@"....дальность стрельбы"];
-        NSString* distanceValue = [self checkForNull:[slot objectForKey:@"distance"]];
+        NSString* distanceValue = [self checkForNull:slot[@"distance"]];
         
         if ([distanceValue isEqual:@"NA"]) {
             [antiAircraftArray addObject:distanceValue];
@@ -737,16 +739,16 @@
 }
 
 
-- (NSMutableArray*) parcePlaneType:(NSDictionary*)planeType {
+- (NSMutableArray*)parcePlaneType:(NSDictionary*)planeType {
     
     NSMutableArray* typeArray = [NSMutableArray new];
     
     [typeArray addObject:@"....уровень"];
-    [typeArray addObject:[self checkForNull:[planeType objectForKey:@"plane_level"]]];
+    [typeArray addObject:[self checkForNull:planeType[@"plane_level"]]];
     
     [typeArray addObject:@"....самолетов в ангаре"];
-    NSString* squads = [self checkHardTextForNull:[planeType objectForKey:@"squadrons"]];
-    NSString* planesInSquad = [self checkHardTextForNull:[[planeType objectForKey:@"count_in_squadron"] objectForKey:@"max"]];
+    NSString* squads = [self checkHardTextForNull:planeType[@"squadrons"]];
+    NSString* planesInSquad = [self checkHardTextForNull:planeType[@"count_in_squadron"][@"max"]];
     
     if ([squads isEqual:@"NA"] && [planesInSquad isEqual:@"NA"]) {
         [typeArray addObject:planesInSquad];
@@ -759,19 +761,13 @@
 }
 
 
-- (NSString*) armourRelease:(NSDictionary*)armourPart {
+- (NSString*)armourRelease:(NSDictionary*)armourPart {
     
-    NSString* valueMin = [armourPart objectForKey:@"min"];
-    NSString* valueMax = [armourPart objectForKey:@"max"];
+    NSString* valueMin = armourPart[@"min"];
+    NSString* valueMax = armourPart[@"max"];
     
     if ([valueMin isEqual:valueMax]) {
-        
-        if ([valueMin integerValue] == 0) {
-            return @"нет бронирования";
-            
-        } else {
-            return [NSString stringWithFormat:@"%@ мм", valueMin];
-        }
+        return [valueMin integerValue] ? [NSString stringWithFormat:@"%@ мм", valueMin] : @"нет бронирования";
         
     } else {
         return [NSString stringWithFormat:@"%@ - %@ мм", valueMin, valueMax];
@@ -781,58 +777,58 @@
 
 #pragma mark - Module
 
-- (void) module:(Module*)module fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
+- (void)module:(Module*)module fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
     
     [self module:module addShip:ship];
     
-    module.moduleID = [[response objectForKey:@"module_id"] stringValue];
-    module.name = [response objectForKey:@"name"];
+    module.moduleID = [response[@"module_id"] stringValue];
+    module.name = response[@"name"];
     
-    module.type = [response objectForKey:@"type"];
-    module.price = [[response objectForKey:@"price_credit"] intValue];
+    module.type = response[@"type"];
+    module.price = [response[@"price_credit"] intValue];
     
-    module.imageString = [response objectForKey:@"image"];
+    module.imageString = response[@"image"];
     
     module.refreshDate = [ServerManager sharedManager].currentDate;
     
     NSMutableArray* stats;
-    NSDictionary* profile = [response objectForKey:@"profile"];
+    NSDictionary* profile = response[@"profile"];
     
     if ([module.type isEqual:@"Engine"]) {
         module.typeLocalized = @"Двигатель";
-        stats = [self parseEngineModule:[profile objectForKey:@"engine"]];
+        stats = [self parseEngineModule:profile[@"engine"]];
         
     } else if ([module.type isEqual:@"Hull"]) {
         module.typeLocalized = @"Корпус";
-        stats = [self parseHullModule:[profile objectForKey:@"hull"]];
+        stats = [self parseHullModule:profile[@"hull"]];
         
     } else if ([module.type isEqual:@"Suo"]) {
         module.typeLocalized = @"Система управления огнем";
-        stats = [self parseFireControlModule:[profile objectForKey:@"fire_control"]];
+        stats = [self parseFireControlModule:profile[@"fire_control"]];
         
     } else if ([module.type isEqual:@"Artillery"]) {
         module.typeLocalized = @"Главный калибр";
-        stats = [self parseArtilleryModule:[profile objectForKey:@"artillery"]];
+        stats = [self parseArtilleryModule:profile[@"artillery"]];
         
     } else if ([module.type isEqual:@"Torpedoes"]) {
         module.typeLocalized = @"Торпедные аппараты";
-        stats = [self parseTorpedoesModule:[profile objectForKey:@"torpedoes"]];
+        stats = [self parseTorpedoesModule:profile[@"torpedoes"]];
         
     } else if ([module.type isEqual:@"FlightControl"]) {
         module.typeLocalized = @"Контроль полетов";
-        stats = [self parseFlightControlModule:[profile objectForKey:@"flight_control"]];
+        stats = [self parseFlightControlModule:profile[@"flight_control"]];
         
     } else if ([module.type isEqual:@"Fighter"]) {
         module.typeLocalized = @"Истребители";
-        stats = [self parseFightersModule:[profile objectForKey:@"fighter"]];
+        stats = [self parseFightersModule:profile[@"fighter"]];
         
     } else if ([module.type isEqual:@"TorpedoBomber"]) {
         module.typeLocalized = @"Торпедоносцы";
-        stats = [self parseTorpedoBombersModule:[profile objectForKey:@"torpedo_bomber"]];
+        stats = [self parseTorpedoBombersModule:profile[@"torpedo_bomber"]];
         
     } else if ([module.type isEqual:@"DiveBomber"]) {
         module.typeLocalized = @"Пикирующие бомбардировщики";
-        stats = [self parseDiveBombersModule:[profile objectForKey:@"dive_bomber"]];
+        stats = [self parseDiveBombersModule:profile[@"dive_bomber"]];
     }
     
     NSArray* statsArray = [NSArray arrayWithArray:stats];
@@ -841,7 +837,7 @@
 
 
 //// Соединение Модуля с Кораблем без повторов
-- (void) module:(Module *)module addShip:(Ship *)ship {
+- (void)module:(Module *)module addShip:(Ship *)ship {
     
     if (![module.ships containsObject:ship]) {
         [module addShipsObject:ship];
@@ -849,30 +845,30 @@
 }
 
 
-- (NSMutableArray*) parseEngineModule:(NSDictionary*)engine {
+- (NSMutableArray*)parseEngineModule:(NSDictionary*)engine {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Максимальная скорость"];
-    NSString* maxSpeed = [self checkForNull:[engine objectForKey:@"max_speed"]];
+    NSString* maxSpeed = [self checkForNull:engine[@"max_speed"]];
     [details addObject:[NSString stringWithFormat:@"%@ уз", maxSpeed]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseHullModule:(NSDictionary*)hull {
+- (NSMutableArray*)parseHullModule:(NSDictionary*)hull {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Боеспособность (здоровье)"];
-    NSString* health = [self checkForNull:[hull objectForKey:@"health"]];
+    NSString* health = [self checkForNull:hull[@"health"]];
     [details addObject:health];
     
     
     [details addObject:@"Диапазон бронирования"];
-    NSString* valueMin = [[hull objectForKey:@"range"] objectForKey:@"min"];
-    NSString* valueMax = [[hull objectForKey:@"range"] objectForKey:@"max"];
+    NSString* valueMin = hull[@"range"][@"min"];
+    NSString* valueMax = hull[@"range"][@"max"];
     
     if ([valueMin integerValue] == 0) {
         [details addObject: @"нет бронирования"];
@@ -883,39 +879,39 @@
     
     
     [details addObject:@"Башен главного калибра"];
-    NSString* artillery = [self checkForNull:[hull objectForKey:@"artillery_barrels"]];
+    NSString* artillery = [self checkForNull:hull[@"artillery_barrels"]];
     [details addObject:artillery];
     
     
     [details addObject:@"Башен вспомогательного калибра"];
-    NSString* atbas = [self checkForNull:[hull objectForKey:@"atba_barrels"]];
+    NSString* atbas = [self checkForNull:hull[@"atba_barrels"]];
     [details addObject:atbas];
     
     
     [details addObject:@"Точек ПВО"];
-    NSString* antiAir = [self checkForNull:[hull objectForKey:@"anti_aircraft_barrels"]];
+    NSString* antiAir = [self checkForNull:hull[@"anti_aircraft_barrels"]];
     [details addObject:antiAir];
     
     
     [details addObject:@"Торпедных аппаратов"];
-    NSString* torpedoes = [self checkForNull:[hull objectForKey:@"torpedoes_barrels"]];
+    NSString* torpedoes = [self checkForNull:hull[@"torpedoes_barrels"]];
     [details addObject:torpedoes];
     
     
     [details addObject:@"Вместимость ангара"];
-    NSString* hangar = [self checkForNull:[hull objectForKey:@"planes_amount"]];
+    NSString* hangar = [self checkForNull:hull[@"planes_amount"]];
     [details addObject:hangar];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseFireControlModule:(NSDictionary*)fireControl {
+- (NSMutableArray*)parseFireControlModule:(NSDictionary*)fireControl {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Дальность стрельбы"];
-    NSString* distanceString = [self checkForNull:[fireControl objectForKey:@"distance"]];
+    NSString* distanceString = [self checkForNull:fireControl[@"distance"]];
     
     if ([distanceString isEqual:@"NA"]) {
         [details addObject:distanceString];
@@ -927,19 +923,19 @@
     
     
     [details addObject:@"Увеличение дальности стрельбы"];
-    NSString* distIncrease = [self checkForNull:[fireControl objectForKey:@"distance_increase"]];
+    NSString* distIncrease = [self checkForNull:fireControl[@"distance_increase"]];
     [details addObject:[NSString stringWithFormat:@"%@%%", distIncrease]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseArtilleryModule:(NSDictionary*)artillery {
+- (NSMutableArray*)parseArtilleryModule:(NSDictionary*)artillery {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Скорострельность"];
-    NSString* gunRateString = [self checkForNull:[artillery objectForKey:@"gun_rate"]];
+    NSString* gunRateString = [self checkForNull:artillery[@"gun_rate"]];
     
     if ([gunRateString isEqual:@"NA"]) {
         [details addObject:gunRateString];
@@ -962,30 +958,29 @@
     
     
     [details addObject:@"Максимальный урон ОФ снарядом"];
-    NSString* damageHE = [self checkForNull:[artillery objectForKey:@"max_damage_HE"]];
+    NSString* damageHE = [self checkForNull:artillery[@"max_damage_HE"]];
     [details addObject:damageHE];
     
     
     [details addObject:@"Максимальный урон ББ снарядом"];
-    NSString* damageAP = [self checkForNull:[artillery objectForKey:@"max_damage_AP"]];
+    NSString* damageAP = [self checkForNull:artillery[@"max_damage_AP"]];
     [details addObject:damageAP];
-    
     
     return details;
 }
 
 
-- (NSMutableArray*) parseTorpedoesModule:(NSDictionary*)torpedoes {
+- (NSMutableArray*)parseTorpedoesModule:(NSDictionary*)torpedoes {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Максимальный урон"];
-    NSString* damage = [self checkForNull:[torpedoes objectForKey:@"max_damage"]];
+    NSString* damage = [self checkForNull:torpedoes[@"max_damage"]];
     [details addObject:damage];
     
     
     [details addObject:@"Время перезарядки"];
-    NSString* shotSpeedString = [self checkForNull:[torpedoes objectForKey:@"shot_speed"]];
+    NSString* shotSpeedString = [self checkForNull:torpedoes[@"shot_speed"]];
     
     if ([shotSpeedString isEqual:@"NA"]) {
         [details addObject:shotSpeedString];
@@ -997,12 +992,12 @@
     
     
     [details addObject:@"Скорость хода"];
-    NSString* speed = [self checkForNull:[torpedoes objectForKey:@"torpedo_speed"]];
+    NSString* speed = [self checkForNull:torpedoes[@"torpedo_speed"]];
     [details addObject:[NSString stringWithFormat:@"%@ уз", speed]];
     
     
     [details addObject:@"Дальность хода"];
-    NSString* distanceString = [self checkForNull:[torpedoes objectForKey:@"distance"]];
+    NSString* distanceString = [self checkForNull:torpedoes[@"distance"]];
     
     if ([distanceString isEqual:@"NA"]) {
         [details addObject:distanceString];
@@ -1016,83 +1011,83 @@
 }
 
 
-- (NSMutableArray*) parseFlightControlModule:(NSDictionary*)flightControl {
+- (NSMutableArray*)parseFlightControlModule:(NSDictionary*)flightControl {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Эскадрилий истребителей"];
-    [details addObject:[[flightControl objectForKey:@"fighter_squadrons"] stringValue]];
+    [details addObject:[flightControl[@"fighter_squadrons"] stringValue]];
     
     
     [details addObject:@"Эскадрилий бомбардировщиков"];
-    [details addObject:[[flightControl objectForKey:@"bomber_squadrons"] stringValue]];
+    [details addObject:[flightControl[@"bomber_squadrons"] stringValue]];
     
     
     [details addObject:@"Эскадрилий торпедоносцев"];
-    [details addObject:[[flightControl objectForKey:@"torpedo_squadrons"] stringValue]];
+    [details addObject:[flightControl[@"torpedo_squadrons"] stringValue]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseFightersModule:(NSDictionary*)fighters {
+- (NSMutableArray*)parseFightersModule:(NSDictionary*)fighters {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Крейсерская скорость"];
-    NSString* speed = [self checkForNull:[fighters objectForKey:@"cruise_speed"]];
+    NSString* speed = [self checkForNull:fighters[@"cruise_speed"]];
     [details addObject:[NSString stringWithFormat:@"%@ уз", speed]];
     
     
     [details addObject:@"Средний урон в секунду"];
-    NSString* damage = [self checkForNull:[fighters objectForKey:@"avg_damage"]];
+    NSString* damage = [self checkForNull:fighters[@"avg_damage"]];
     [details addObject:damage];
     
     
     [details addObject:@"Боеспособность (здоровье)"];
-    NSString* health = [self checkForNull:[fighters objectForKey:@"max_health"]];
+    NSString* health = [self checkForNull:fighters[@"max_health"]];
     [details addObject:health];
     
     
     [details addObject:@"Боекомплект"];
-    NSString* ammo = [self checkForNull:[fighters objectForKey:@"max_ammo"]];
+    NSString* ammo = [self checkForNull:fighters[@"max_ammo"]];
     [details addObject:ammo];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseTorpedoBombersModule:(NSDictionary*)torpedoBombers {
+- (NSMutableArray*)parseTorpedoBombersModule:(NSDictionary*)torpedoBombers {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Крейсерская скорость"];
-    NSString* speed = [self checkForNull:[torpedoBombers objectForKey:@"cruise_speed"]];
+    NSString* speed = [self checkForNull:torpedoBombers[@"cruise_speed"]];
     [details addObject:[NSString stringWithFormat:@"%@ уз", speed]];
     
     
     [details addObject:@"Боеспособность (здоровье)"];
-    NSString* health = [self checkForNull:[torpedoBombers objectForKey:@"max_health"]];
+    NSString* health = [self checkForNull:torpedoBombers[@"max_health"]];
     [details addObject:health];
     
     
     [details addObject:@"Максимальный урон торпедой"];
-    NSString* damage = [self checkForNull:[torpedoBombers objectForKey:@"torpedo_damage"]];
+    NSString* damage = [self checkForNull:torpedoBombers[@"torpedo_damage"]];
     [details addObject:damage];
     
     
     [details addObject:@"Максимальная скорость торпеды"];
-    NSString* torpedoSpeed = [self checkForNull:[torpedoBombers objectForKey:@"torpedo_max_speed"]];
+    NSString* torpedoSpeed = [self checkForNull:torpedoBombers[@"torpedo_max_speed"]];
     [details addObject:[NSString stringWithFormat:@"%@ уз", torpedoSpeed]];
     
     // На данный момент вместо названия - строковый ID торпеды
     [details addObject:@"Торпеда"];
-    NSString* torpedoName = [self checkHardTextForNull:[torpedoBombers objectForKey:@"torpedo_name"]];
+    NSString* torpedoName = [self checkHardTextForNull:torpedoBombers[@"torpedo_name"]];
     [details addObject:torpedoName];
     
     
     [details addObject:@"Дальность пуска "];
-    NSString* distanceString = [self checkForNull:[torpedoBombers objectForKey:@"distance"]];
+    NSString* distanceString = [self checkForNull:torpedoBombers[@"distance"]];
     
     if ([distanceString isEqual:@"NA"]) {
         [details addObject:distanceString];
@@ -1106,42 +1101,41 @@
 }
 
 
-- (NSMutableArray*) parseDiveBombersModule:(NSDictionary*)diveBombers {
+- (NSMutableArray*)parseDiveBombersModule:(NSDictionary*)diveBombers {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Крейсерская скорость"];
-    NSString* speed = [self checkForNull:[diveBombers objectForKey:@"cruise_speed"]];
+    NSString* speed = [self checkForNull:diveBombers[@"cruise_speed"]];
     [details addObject:[NSString stringWithFormat:@"%@ уз", speed]];
     
     
     [details addObject:@"Боеспособность (здоровье)"];
-    NSString* health = [self checkForNull:[diveBombers objectForKey:@"max_health"]];
+    NSString* health = [self checkForNull:diveBombers[@"max_health"]];
     [details addObject:health];
     
     
     [details addObject:@"Максимальный урон бомбой"];
-    NSString* maxDamage = [self checkForNull:[diveBombers objectForKey:@"max_damage"]];
+    NSString* maxDamage = [self checkForNull:diveBombers[@"max_damage"]];
     [details addObject:maxDamage];
     
     
     [details addObject:@"Шанс пожара при попадании"];
-    NSString* burnProb = [diveBombers objectForKey:@"bomb_burn_probability"];
+    NSString* burnProb = diveBombers[@"bomb_burn_probability"];
     [details addObject:[NSString stringWithFormat:@"%@%%", burnProb]];
     
     
     [details addObject:@"Точность бомбометания"];
-    NSDictionary* accuracyRange = [diveBombers objectForKey:@"accuracy"];
+    NSDictionary* accuracyRange = diveBombers[@"accuracy"];
     
-    float accuracyMin = [[accuracyRange objectForKey:@"min"] floatValue];
-    float accuracyMax = [[accuracyRange objectForKey:@"max"] floatValue];
+    float accuracyMin = [accuracyRange[@"min"] floatValue];
+    float accuracyMax = [accuracyRange[@"max"] floatValue];
     
     if (accuracyMin == 0.f && accuracyMax == 0.f) {
         [details addObject:@"NA"];
         
     } else {
         [details addObject:[NSString stringWithFormat:@"%1.1f - %1.1f", accuracyMin, accuracyMax]];
-        
     }
     
     return details;
@@ -1150,29 +1144,29 @@
 
 #pragma mark - Upgrade
 
-- (void) upgrade:(Upgrade*)upgrade fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
+- (void)upgrade:(Upgrade*)upgrade fillWithResponse:(NSDictionary*)response forShip:(Ship*)ship {
     
     [self upgrade:upgrade addShip:ship];
     
-    upgrade.upgradeID = [[response objectForKey:@"upgrade_id"] stringValue];
+    upgrade.upgradeID = [response[@"upgrade_id"] stringValue];
     
-    NSString* nameString = [response objectForKey:@"name"];
+    NSString* nameString = response[@"name"];
     NSArray* nameComponents = [nameString componentsSeparatedByString:@"Модификация"];
     
     upgrade.name = [nameComponents firstObject];
     upgrade.mode = [[nameComponents lastObject] intValue];
     
-    upgrade.price = [[response objectForKey:@"price"] intValue];
+    upgrade.price = [response[@"price"] intValue];
     
-    upgrade.type = [response objectForKey:@"type"];
-    upgrade.review = [response objectForKey:@"description"];
+    upgrade.type = response[@"type"];
+    upgrade.review = response[@"description"];
     
-    upgrade.imageString = [response objectForKey:@"image"];
+    upgrade.imageString = response[@"image"];
     
     upgrade.refreshDate = [ServerManager sharedManager].currentDate;
     
     NSMutableArray* stats;
-    NSDictionary* uprgadeInfo = [[response objectForKey:@"profile"] objectForKey:upgrade.type];
+    NSDictionary* uprgadeInfo = response[@"profile"][upgrade.type];
     
     if ([upgrade.type isEqualToString:@"powder"]) {
         stats = [self parsePowderUpgrade:uprgadeInfo];
@@ -1226,7 +1220,7 @@
 
 
 //// Соединение Апгрейда с Кораблем без повторов
-- (void) upgrade:(Upgrade*)upgrade addShip:(Ship*)ship {
+- (void)upgrade:(Upgrade*)upgrade addShip:(Ship*)ship {
     
     if (![upgrade.ships containsObject:ship]) {
         [upgrade addShipsObject:ship];
@@ -1234,12 +1228,12 @@
 }
 
 
-- (NSMutableArray*) parsePowderUpgrade:(NSDictionary*)powder {
+- (NSMutableArray*)parsePowderUpgrade:(NSDictionary*)powder {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Шанс взрыва погреба"];
-    NSString* probString = [powder objectForKey:@"detonation_prob"];
+    NSString* probString = powder[@"detonation_prob"];
     
     float prob = [probString floatValue] * 100.f ;
     [details addObject:[NSString stringWithFormat:@"-%1.0f%%", prob]];
@@ -1248,316 +1242,315 @@
 }
 
 
-- (NSMutableArray*) parseSteeringUpgrade:(NSDictionary*)steering {
+- (NSMutableArray*)parseSteeringUpgrade:(NSDictionary*)steering {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Скорость ремонта"];
-    NSString* repairTime = [steering objectForKey:@"repair_time_coef"];
+    NSString* repairTime = steering[@"repair_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:repairTime sign:@"+"]];
     
     [details addObject:@"Шанс крит.повреждения"];
-    NSString* critDamage = [steering objectForKey:@"critical_damage_chance_coef"];
+    NSString* critDamage = steering[@"critical_damage_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:critDamage sign:@"-"]];
     
     [details addObject:@"Скорость перекладки рулей"];
-    NSString* rudderTime = [steering objectForKey:@"rudder_time_coef"];
+    NSString* rudderTime = steering[@"rudder_time_coef"];
     [details addObject:[self percentFloatOneMinusValue: rudderTime sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseGuidanceUpgrade:(NSDictionary*)guidance {
+- (NSMutableArray*)parseGuidanceUpgrade:(NSDictionary*)guidance {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Скорость поворота установок ГК"];
-    NSString* artRotation = [guidance objectForKey:@"artillery_rotation_speed"];
+    NSString* artRotation = guidance[@"artillery_rotation_speed"];
     [details addObject:[self percentFloatValueMinusOne:artRotation sign:@"+"]];
     
     [details addObject:@"Кучность стрельбы орудий ГК"];
-    NSString* artAccuracy = [guidance objectForKey:@"artillery_shoot_accuracy"];
+    NSString* artAccuracy = guidance[@"artillery_shoot_accuracy"];
     [details addObject:[self percentFloatOneMinusValue:artAccuracy sign:@"+"]];
     
     [details addObject:@"Дальность стрельбы орудий ПМК"];
-    NSString* atbaDistance = [guidance objectForKey:@"atba_max_dist"];
+    NSString* atbaDistance = guidance[@"atba_max_dist"];
     [details addObject:[self percentFloatValueMinusOne:atbaDistance sign:@"+"]];
     
     [details addObject:@"Скорость поворота орудий ПМК"];
-    NSString* atbaRotation = [guidance objectForKey:@"atba_rotation_speed"];
+    NSString* atbaRotation = guidance[@"atba_rotation_speed"];
     [details addObject:[self percentFloatValueMinusOne:atbaRotation sign:@"+"]];
     
     [details addObject:@"Кучность стрельбы орудий ПМК"];
-    NSString* atbaAccuracy = [guidance objectForKey:@"atba_shoot_accuracy"];
+    NSString* atbaAccuracy = guidance[@"atba_shoot_accuracy"];
     [details addObject:[self percentFloatOneMinusValue:atbaAccuracy sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseDamageControlUpgrade:(NSDictionary*)damageControl {
+- (NSMutableArray*)parseDamageControlUpgrade:(NSDictionary*)damageControl {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Вероятность пожара"];
-    NSString* fireChance = [damageControl objectForKey:@"fire_starting_chance_coef"];
+    NSString* fireChance = damageControl[@"fire_starting_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:fireChance sign:@"-"]];
     
     [details addObject:@"Скорость тушения пожара"];
-    NSString* fireTime = [damageControl objectForKey:@"burning_time_coef"];
+    NSString* fireTime = damageControl[@"burning_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:fireTime sign:@"+"]];
     
     [details addObject:@"Вероятность затопления"];
-    NSString* floodChance = [damageControl objectForKey:@"flood_starting_chance_coef"];
+    NSString* floodChance = damageControl[@"flood_starting_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:floodChance sign:@"-"]];
     
     [details addObject:@"Скорость устранения затопления"];
-    NSString* floodTime = [damageControl objectForKey:@"flooding_time_coef"];
+    NSString* floodTime = damageControl[@"flooding_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:floodTime sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseMainWeaponUpgrade:(NSDictionary*)mainWeapon {
+- (NSMutableArray*)parseMainWeaponUpgrade:(NSDictionary*)mainWeapon {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Шанс выхода из строя ГК"];
-    NSString* artDamage = [mainWeapon objectForKey:@"artillery_damage_prob"];
+    NSString* artDamage = mainWeapon[@"artillery_damage_prob"];
     [details addObject:[self percentFloatOneMinusValue:artDamage sign:@"-"]];
     
     [details addObject:@"Живучесть ГК"];
-    NSString* artHealth = [mainWeapon objectForKey:@"artillery_max_hp"];
+    NSString* artHealth = mainWeapon[@"artillery_max_hp"];
     [details addObject:[self percentFloatValueMinusOne:artHealth sign:@"+"]];
     
     [details addObject:@"Время ремонта ГК"];
-    NSString* artRepair = [mainWeapon objectForKey:@"artillery_repair_time"];
+    NSString* artRepair = mainWeapon[@"artillery_repair_time"];
     [details addObject:[self percentFloatOneMinusValue:artRepair sign:@"-"]];
     
     [details addObject:@"Вероятность выхода из строя ТА"];
-    NSString* torpDamage = [mainWeapon objectForKey:@"tpd_damage_prob"];
+    NSString* torpDamage = mainWeapon[@"tpd_damage_prob"];
     [details addObject:[self percentFloatOneMinusValue:torpDamage sign:@"-"]];
     
     [details addObject:@"Живучесть ТА"];
-    NSString* torpHealth = [mainWeapon objectForKey:@"tpd_max_hp"];
+    NSString* torpHealth = mainWeapon[@"tpd_max_hp"];
     [details addObject:[self percentFloatValueMinusOne:torpHealth sign:@"+"]];
     
     [details addObject:@"Время ремонта ТА"];
-    NSString* torpRepair = [mainWeapon objectForKey:@"tpd_repair_time"];
+    NSString* torpRepair = mainWeapon[@"tpd_repair_time"];
     [details addObject:[self percentFloatOneMinusValue:torpRepair sign:@"-"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseSecondWeaponUpgrade:(NSDictionary*)secondWeapon {
+- (NSMutableArray*)parseSecondWeaponUpgrade:(NSDictionary*)secondWeapon {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Живучесть установок ПМК"];
-    NSString* atbaHealth = [secondWeapon objectForKey:@"atba_max_hp"];
+    NSString* atbaHealth = secondWeapon[@"atba_max_hp"];
     [details addObject:[self percentFloatValueMinusOne:atbaHealth sign:@"+"]];
     
     [details addObject:@"Живучесть установок ПВО"];
-    NSString* aaHealth = [secondWeapon objectForKey:@"air_defense_max_hp"];
+    NSString* aaHealth = secondWeapon[@"air_defense_max_hp"];
     [details addObject:[self percentFloatValueMinusOne:aaHealth sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseArtilleryUpgrade:(NSDictionary*)artillery {
+- (NSMutableArray*)parseArtilleryUpgrade:(NSDictionary*)artillery {
     
     NSMutableArray* details = [NSMutableArray new];
     
-    [details addObject:@"Шанс крит.повреждения погреба боеприпасов"];
-    NSString* ammoCritChance = [artillery objectForKey:@"ammo_critical_damage_chance_coef"];
+    [details addObject:@"Шанс крит.повреждения погреба"];
+    NSString* ammoCritChance = artillery[@"ammo_critical_damage_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:ammoCritChance sign:@"-"]];
     
-    [details addObject:@"Шанс взрыва погреба боеприпасов"];
-    NSString* detonChance = [artillery objectForKey:@"ammo_detonation_chance_coef"];
+    [details addObject:@"Шанс взрыва погреба"];
+    NSString* detonChance = artillery[@"ammo_detonation_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:detonChance sign:@"-"]];
     
-    [details addObject:@"Скорость ремонта погреба боеприпасов"];
-    NSString* ammoRepairTime = [artillery objectForKey:@"ammo_repair_time_coef"];
+    [details addObject:@"Скорость ремонта погреба"];
+    NSString* ammoRepairTime = artillery[@"ammo_repair_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:ammoRepairTime sign:@"+"]];
     
     [details addObject:@"Шанс крит.повреждения установки ГК"];
-    NSString* artCritChance = [artillery objectForKey:@"critical_damage_chance_coef"];
+    NSString* artCritChance = artillery[@"critical_damage_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:artCritChance sign:@"-"]];
     
     [details addObject:@"Время перезарядки ГК"];
-    NSString* reloadTime = [artillery objectForKey:@"reload_time_coef"];
+    NSString* reloadTime = artillery[@"reload_time_coef"];
     [details addObject:[self percentFloatValueMinusOne:reloadTime sign:@"+"]];
     
     [details addObject:@"Скорость ремонта ГК"];
-    NSString* artRepairTime = [artillery objectForKey:@"repair_time_coef"];
+    NSString* artRepairTime = artillery[@"repair_time_coef"];
     [details addObject:[self percentFloatValueMinusOne:artRepairTime sign:@"+"]];
     
     [details addObject:@"Скорость наведения башен ГК"];
-    NSString* rotationTime = [artillery objectForKey:@"rotation_time_coef"];
+    NSString* rotationTime = artillery[@"rotation_time_coef"];
     [details addObject:[self percentFloatValueMinusOne:rotationTime sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseEngineUpgrade:(NSDictionary*)engine {
+- (NSMutableArray*)parseEngineUpgrade:(NSDictionary*)engine {
     
     NSMutableArray* details = [NSMutableArray new];
     
-    [details addObject:@"Время набора максимальной скорости вперед"];
-    NSString* maxForward = [engine objectForKey:@"max_forward_power_coef"];
+    [details addObject:@"Время набора макс.скорости вперед"];
+    NSString* maxForward = engine[@"max_forward_power_coef"];
     [details addObject:[self percentFloatOneMinusValue:maxForward sign:@"-"]];
     
-    [details addObject:@"Время набора максимальной скорости назад"];
-    NSString* maxBackfard = [engine objectForKey:@"max_backward_power_coef"];
+    [details addObject:@"Время набора макс.скорости назад"];
+    NSString* maxBackfard = engine[@"max_backward_power_coef"];
     [details addObject:[self percentFloatOneMinusValue:maxBackfard sign:@"-"]];
     
     [details addObject:@"Шанс крит.повреждения"];
-    NSString* critChance = [engine objectForKey:@"critical_damage_chance_coef"];
+    NSString* critChance = engine[@"critical_damage_chance_coef"];
     [details addObject:[self percentFloatOneMinusValue:critChance sign:@"-"]];
     
     [details addObject:@"Время ремонта"];
-    NSString* repairTime = [engine objectForKey:@"repair_time_coef"];
+    NSString* repairTime = engine[@"repair_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:repairTime sign:@"-"]];
     
     return details;
 }
 
 
-
-- (NSMutableArray*) parseAntiAircraftUpgrade:(NSDictionary*)antiAircraft {
+- (NSMutableArray*)parseAntiAircraftUpgrade:(NSDictionary*)antiAircraft {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Дальность стрельбы ПВО"];
-    NSString* distance = [antiAircraft objectForKey:@"distance_coef"];
+    NSString* distance = antiAircraft[@"distance_coef"];
     [details addObject:[self percentFloatValueMinusOne:distance sign:@"+"]];
     
     [details addObject:@"Эффективность ПВО"];
-    NSString* efficiency = [antiAircraft objectForKey:@"efficiency_coef"];
+    NSString* efficiency = antiAircraft[@"efficiency_coef"];
     [details addObject:[self percentFloatValueMinusOne:efficiency sign:@"+"]];
     
     [details addObject:@"Живучесть установок ПВО"];
-    NSString* heath = [antiAircraft objectForKey:@"health_coef"];
+    NSString* heath = antiAircraft[@"health_coef"];
     [details addObject:[self percentFloatValueMinusOne:heath sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseFlightControlUpgrade:(NSDictionary*)flightControl {
+- (NSMutableArray*)parseFlightControlUpgrade:(NSDictionary*)flightControl {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Время подготовки самолетов"];
-    NSString* time = [flightControl objectForKey:@"prepare_time_coef"];
+    NSString* time = flightControl[@"prepare_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:time sign:@"-"]];
     
     [details addObject:@"Скорость самолетов"];
-    NSString* speed = [flightControl objectForKey:@"speed_coef"];
+    NSString* speed = flightControl[@"speed_coef"];
     [details addObject:[self percentFloatValueMinusOne:speed sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parsePlanesUpgrade:(NSDictionary*)planes {
+- (NSMutableArray*)parsePlanesUpgrade:(NSDictionary*)planes {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Живучесть истребителей"];
-    NSString* fighterHealth = [planes objectForKey:@"fighter_health_coef"];
+    NSString* fighterHealth = planes[@"fighter_health_coef"];
     [details addObject:[self percentFloatValueMinusOne:fighterHealth sign:@"+"]];
     
     [details addObject:@"Живучесть бомбардировщиков"];
-    NSString* bomberHealth = [planes objectForKey:@"bomber_health_coef"];
+    NSString* bomberHealth = planes[@"bomber_health_coef"];
     [details addObject:[self percentFloatValueMinusOne:bomberHealth sign:@"+"]];
     
     [details addObject:@"Эффективность стрелкового вооружения"];
-    NSString* efficiency = [planes objectForKey:@"efficiency_coef"];
+    NSString* efficiency = planes[@"efficiency_coef"];
     [details addObject:[self percentFloatValueMinusOne:efficiency sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseAtbaUpgrade:(NSDictionary*)atba {
+- (NSMutableArray*)parseAtbaUpgrade:(NSDictionary*)atba {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Кучность стрельбы ПМК"];
-    NSString* accuracy = [atba objectForKey:@"accuracy_coef"];
+    NSString* accuracy = atba[@"accuracy_coef"];
     [details addObject:[self percentFloatOneMinusValue:accuracy sign:@"+"]];
     
     [details addObject:@"Дальность стрельбы ПМК"];
-    NSString* distance = [atba objectForKey:@"distance_coef"];
+    NSString* distance = atba[@"distance_coef"];
     [details addObject:[self percentFloatValueMinusOne:distance sign:@"+"]];
     
     [details addObject:@"Живучесть установок ПМК"];
-    NSString* health = [atba objectForKey:@"health_coef"];
+    NSString* health = atba[@"health_coef"];
     [details addObject:[self percentFloatValueMinusOne:health sign:@"+"]];
     
     [details addObject:@"Время перезарядки ПМК"];
-    NSString* reloadTime = [atba objectForKey:@"reload_time_coef"];
+    NSString* reloadTime = atba[@"reload_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:reloadTime sign:@"-"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseConcealmentUpgrade:(NSDictionary*)concealment {
+- (NSMutableArray*)parseConcealmentUpgrade:(NSDictionary*)concealment {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Заметность"];
-    NSString* detectDist = [concealment objectForKey:@"detect_distance_coef"];
+    NSString* detectDist = concealment[@"detect_distance_coef"];
     [details addObject:[self percentFloatOneMinusValue:detectDist sign:@"-"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseSpottingUpgrade:(NSDictionary*)spotting {
+- (NSMutableArray*)parseSpottingUpgrade:(NSDictionary*)spotting {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Дальность обнаружения"];
-    NSString* spotDist = [spotting objectForKey:@"spot_distance_coef"];
+    NSString* spotDist = spotting[@"spot_distance_coef"];
     [details addObject:[self percentFloatValueMinusOne:spotDist sign:@"+"]];
     
     return details;
 }
 
 
-- (NSMutableArray*) parseTorpedoesUpgrade:(NSDictionary*)torpedoes {
+- (NSMutableArray*)parseTorpedoesUpgrade:(NSDictionary*)torpedoes {
     
     NSMutableArray* details = [NSMutableArray new];
     
     [details addObject:@"Шанс крит.повреждения ТА"];
-    NSString* critChance = [torpedoes objectForKey:@"critical_damage_chance_coef"];
+    NSString* critChance = torpedoes[@"critical_damage_chance_coef"];
     [details addObject:[self percentFloatValueMinusOne:critChance sign:@"+"]];
     
     [details addObject:@"Время перезарядки"];
-    NSString* reloadTime = [torpedoes objectForKey:@"reload_time_coef"];
+    NSString* reloadTime = torpedoes[@"reload_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:reloadTime sign:@"-"]];
     
     [details addObject:@"Время ремонта ТА"];
-    NSString* repairTime = [torpedoes objectForKey:@"repair_time_coef"];
+    NSString* repairTime = torpedoes[@"repair_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:repairTime sign:@"-"]];
     
     [details addObject:@"Скорость поворота ТА"];
-    NSString* rotationTime = [torpedoes objectForKey:@"rotation_time_coef"];
+    NSString* rotationTime = torpedoes[@"rotation_time_coef"];
     [details addObject:[self percentFloatOneMinusValue:rotationTime sign:@"-"]];
     
     return details;
 }
 
 
-- (NSString*) percentFloatValueMinusOne:(NSString*)value sign:(NSString*)sign {
+- (NSString*)percentFloatValueMinusOne:(NSString*)value sign:(NSString*)sign {
     
     NSString* checkedValue = [self checkForNull:value];
     
@@ -1567,12 +1560,8 @@
     } else {
         float percent = ([checkedValue floatValue] - 1.f) * 100.f;
         
-        if (percent < 0.f) {
-            return [NSString stringWithFormat:@"%1.0f%%", percent];
-            
-        } else {
-            return [NSString stringWithFormat:@"%@%1.0f%%", sign, percent];
-        }
+        return (percent < 0.f) ?
+         [NSString stringWithFormat:@"%1.0f%%", percent] : [NSString stringWithFormat:@"%@%1.0f%%", sign, percent];
     }
 }
 
@@ -1587,12 +1576,8 @@
     } else {
         float percent = (1.f - [checkedValue floatValue]) * 100.f;
         
-        if (percent < 0.f) {
-            return [NSString stringWithFormat:@"%1.0f%%", percent];
-            
-        } else {
-            return [NSString stringWithFormat:@"%@%1.0f%%", sign, percent];
-        }
+        return (percent < 0.f) ?
+         [NSString stringWithFormat:@"%1.0f%%", percent] : [NSString stringWithFormat:@"%@%1.0f%%", sign, percent];
     }
 }
 
@@ -1601,6 +1586,7 @@
 
 //// Метка пустой строки для значения, которое не может быть нулевым. Проверяется при отображении детального инфо
 - (NSString*) checkForNull:(id)value {
+    
     if ([value isKindOfClass:[NSNull class]]) {
         return @"NA";
         
@@ -1608,30 +1594,19 @@
         return @"NA";
         
     } else {
-        
-        if ([value isKindOfClass:[NSNumber class]]) {
-            value = [value stringValue];
-        } else {
-            value = (NSString*)value;
-        }
-        return value;
+        return ([value isKindOfClass:[NSNumber class]]) ? [value stringValue] : (NSString*)value;
     }
 }
 
 
 //// Проверка строк названий (буквы + цифры + символы)
 - (NSString*) checkHardTextForNull:(id)value {
+    
     if ([value isKindOfClass:[NSNull class]] || value == nil) {
         return @"NA";
         
     } else {
-        
-        if ([value isKindOfClass:[NSNumber class]]) {
-            value = [value stringValue];
-        } else {
-            value = (NSString*)value;
-        }
-        return value;
+        return ([value isKindOfClass:[NSNumber class]]) ? [value stringValue] : (NSString*)value;
     }
 }
 

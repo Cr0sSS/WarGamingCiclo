@@ -137,7 +137,7 @@ static NSArray* groupNames;
 }
 
 
-- (void) actionShowDescription:(UIBarButtonItem*)sender {
+- (void)actionShowDescription:(UIBarButtonItem*)sender {
     
     ShipDescriptionViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShipDescriptionVC"];
     vc.text = self.ship.review;
@@ -162,7 +162,7 @@ static NSArray* groupNames;
 }
 
 
-- (void) shareStatsArrays {
+- (void)shareStatsArrays {
     
     [self shareData:self.ship.mainStats toNames:self.mainStatsNames values:self.mainStatsValues];
     [self shareData:self.ship.mobility toNames:self.mobilityNames values:self.mobilityValues];
@@ -180,7 +180,7 @@ static NSArray* groupNames;
             NSMutableArray* batteryValues = [NSMutableArray new];
             
             [self shareArray:battery toNames:batteryNames values:batteryValues];
-            NSArray* filteredBattery = [NSArray arrayWithObjects:batteryNames, batteryValues, nil];
+            NSArray* filteredBattery = @[batteryNames, batteryValues];
             
             [self.additionalBatteries addObject:filteredBattery];
         }
@@ -188,7 +188,7 @@ static NSArray* groupNames;
 }
 
 
-- (void) shareData:(NSData*)data toNames:(NSMutableArray*)names values:(NSMutableArray*)values {
+- (void)shareData:(NSData*)data toNames:(NSMutableArray*)names values:(NSMutableArray*)values {
     
     if (data) {
         NSArray* array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
@@ -197,7 +197,7 @@ static NSArray* groupNames;
 }
 
 
-- (void) shareArray:(NSArray*)array toNames:(NSMutableArray*)names values:(NSMutableArray*)values {
+- (void)shareArray:(NSArray*)array toNames:(NSMutableArray*)names values:(NSMutableArray*)values {
     
     for (NSInteger i = 0; i < [array count]; i = i + 2) {
         NSString* value = [array objectAtIndex:i + 1];
@@ -281,8 +281,7 @@ static NSArray* groupNames;
                 cell.classLabel.text = typeString;
             }
 
-            cell.tierLabel.text = [tierValues objectAtIndex:self.ship.tier - 1];
-            
+            cell.tierLabel.text = tierValues[self.ship.tier - 1];
             return cell;
             
         } else if (indexPath.row == 1) {
@@ -301,13 +300,11 @@ static NSArray* groupNames;
                                            failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                                                NSLog(@"ERROR\nLarge image for ship %@ load fail\n%@", self.ship.name, [error localizedDescription]);
                                            }];
-            
             return cell;
             
         } else {
             GroupInStatsCell* cell = [tableView dequeueReusableCellWithIdentifier:groupCellIdentifier forIndexPath:indexPath];
-            
-            cell.groupNameLabel.text = [groupNames objectAtIndex:indexPath.row - 2];
+            cell.groupNameLabel.text = groupNames[indexPath.row - 2];
             
             return cell;
         }
@@ -315,68 +312,68 @@ static NSArray* groupNames;
     } else if (indexPath.section == 1) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.mainStatsNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. mainStatsValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.mainStatsNames[indexPath.row];
+        cell.valueLabel.text = self. mainStatsValues[indexPath.row];
         
         return cell;
         
     } else if (indexPath.section == 2) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.mobilityNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. mobilityValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.mobilityNames[indexPath.row];
+        cell.valueLabel.text = self. mobilityValues[indexPath.row];
         
         return cell;
         
     } else if (indexPath.section == 3) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.concealmentNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. concealmentValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.concealmentNames[indexPath.row];
+        cell.valueLabel.text = self. concealmentValues[indexPath.row];
         
         return cell;
         
     } else if (indexPath.section == 4) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.antiAircraftNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. antiAircraftValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.antiAircraftNames[indexPath.row];
+        cell.valueLabel.text = self. antiAircraftValues[indexPath.row];
         
         return cell;
         
     } else if (indexPath.section == 5) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.torpedoesNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. torpedoesValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.torpedoesNames[indexPath.row];
+        cell.valueLabel.text = self. torpedoesValues[indexPath.row];
         
         return cell;
         
     } else if (indexPath.section == 6) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.airGroupNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. airGroupValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.airGroupNames[indexPath.row];
+        cell.valueLabel.text = self. airGroupValues[indexPath.row];
         
         return cell;
         
     } else if (indexPath.section == 7) {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        cell.nameLabel.text = [self.mainBatteryNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [self. mainBatteryValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = self.mainBatteryNames[indexPath.row];
+        cell.valueLabel.text = self. mainBatteryValues[indexPath.row];
         
         return cell;
 
     } else {
         StatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
         
-        NSArray* battery = [self.additionalBatteries objectAtIndex:indexPath.section - sectionShift];
-        NSArray* batteryNames = [battery objectAtIndex:0];
-        NSArray* batteryValues = [battery objectAtIndex:1];
+        NSArray* battery = self.additionalBatteries[indexPath.section - sectionShift];
+        NSArray* batteryNames = battery[0];
+        NSArray* batteryValues = battery[1];
         
-        cell.nameLabel.text = [batteryNames objectAtIndex:indexPath.row];
-        cell.valueLabel.text = [batteryValues objectAtIndex:indexPath.row];
+        cell.nameLabel.text = batteryNames[indexPath.row];
+        cell.valueLabel.text = batteryValues[indexPath.row];
         
         return cell;
     }
@@ -474,13 +471,7 @@ static NSArray* groupNames;
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
-    if (section) {
-        return 16.f;
-        
-    } else {
-        return 0.f;
-    }
+    return (section == 0) ? 0.f : 16.f;
 }
 
 
@@ -489,7 +480,6 @@ static NSArray* groupNames;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        
         if (indexPath.row == 2) {
             ModulesViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ModulesVC"];
             vc.ship = self.ship;
@@ -505,12 +495,7 @@ static NSArray* groupNames;
 
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row > 1) {
-        return YES;
-        
-    } else {
-        return NO;
-    }
+    return (indexPath.section == 0 && indexPath.row > 1) ? YES : NO;
 }
 
 @end
