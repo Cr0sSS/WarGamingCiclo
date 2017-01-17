@@ -17,8 +17,8 @@ Next openings App will check version of unit info (CoreData & Wiki Server) and u
 - Foundation
 
 # Requirements 
-- Xcode 8.2.1 или новее
-- iOS 10.2 или новее
+- Xcode 8.2.1 or higher
+- iOS 10.2 or higher
 
 # Licence
 The MIT License (MIT)
