@@ -62,58 +62,69 @@ static NSDictionary* typeNames;
     
     self.collectionView.collectionViewLayout = layout;
     
-    self.shipsArray = [[DataManager sharedManager] getShipsForNation:self.nation orShipType:self.shipType];
-    
-    [[ServerManager sharedManager]
-     getShipsFromServerWithType:self.shipType.typeID
-                         nation:self.nation.nationID
-                      onSuccess:^(NSDictionary* responseObject) {
-                          
-                          NSDictionary* response = responseObject[@"data"];
-                          NSInteger count = [responseObject[@"meta"][@"count"] integerValue];
-                          
-                          if (!([self.shipsArray count] == count)) {
-                              NSMutableDictionary* newShips = [[NSMutableDictionary alloc] initWithDictionary:response];
-                              
-                              for (Ship* ship in self.shipsArray) {
-                                  [newShips removeObjectForKey:ship.shipID];
-                                  
-                                  //// Обновление устаревшей основной информации корабля
-                                  if (![ship.refreshDate isEqual:[ServerManager sharedManager].currentDate]) {
-                                      [[ParsingManager sharedManager] ship:ship
-                                                                fillWithID:ship.shipID
-                                                                   details:response[ship.shipID]];
-                                      
-                                      NSLog(@"%@ был обновлен в основе", ship.name);
-                                  }
-                              }
-                              
-                              //// Догрузка недостающих кораблей (в случае неполной группы)
-                              NSArray* shipsIDs = [newShips allKeys];
-                              NSArray* shipsDetails = [newShips allValues];
-                              
-                              for (NSInteger i = 0; i < [shipsIDs count]; i++) {
-                                  [[DataManager sharedManager] shipWithID:shipsIDs[i]
-                                                                  details:shipsDetails[i]];
-                              }
-                              
-                              [[DataManager sharedManager] saveContext];
-                              self.shipsArray = [[DataManager sharedManager] getShipsForNation:self.nation orShipType:self.shipType];
-                              
-                              [self.collectionView reloadData];
-                              
-                              NSLog(@"Группа кораблей была догружена");
-                          }
-                      }
-     
-                     onFailure:^(NSError *error) {
-                         NSLog(@"GROUPS OF SHIPS ERROR\n%@", [error localizedDescription]);
-    }];
+    [self fillMainArray];
+    [self requestDataFromWiki];
 }
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+
+- (void)fillMainArray {
+    self.shipsArray = [[DataManager sharedManager] getShipsForNation:self.nation
+                                                          orShipType:self.shipType];
+}
+
+
+- (void)requestDataFromWiki {
+    
+    [[ServerManager sharedManager]
+     getShipsFromServerWithType:self.shipType.typeID
+     nation:self.nation.nationID
+     onSuccess:^(NSDictionary* responseObject) {
+         
+         NSDictionary* response = responseObject[@"data"];
+         NSInteger count = [responseObject[@"meta"][@"count"] integerValue];
+         
+         if (!([self.shipsArray count] == count)) {
+             NSMutableDictionary* newShips = [[NSMutableDictionary alloc] initWithDictionary:response];
+             
+             for (Ship* ship in self.shipsArray) {
+                 [newShips removeObjectForKey:ship.shipID];
+                 
+                 //// Обновление устаревшей основной информации корабля
+                 if (![ship.refreshDate isEqual:[ServerManager sharedManager].currentDate]) {
+                     [[ParsingManager sharedManager] ship:ship
+                                               fillWithID:ship.shipID
+                                                  details:response[ship.shipID]];
+                     
+                     NSLog(@"%@ был обновлен в основе", ship.name);
+                 }
+             }
+             
+             //// Догрузка недостающих кораблей (в случае неполной группы)
+             NSArray* shipsIDs = [newShips allKeys];
+             NSArray* shipsDetails = [newShips allValues];
+             
+             for (NSInteger i = 0; i < [shipsIDs count]; i++) {
+                 [[DataManager sharedManager] shipWithID:shipsIDs[i]
+                                                 details:shipsDetails[i]];
+             }
+             
+             [[DataManager sharedManager] saveContext];
+             self.shipsArray = [[DataManager sharedManager] getShipsForNation:self.nation orShipType:self.shipType];
+             
+             [self.collectionView reloadData];
+             
+             NSLog(@"Группа кораблей была догружена");
+         }
+     }
+     
+     onFailure:^(NSError *error) {
+         NSLog(@"GROUPS OF SHIPS ERROR\n%@", [error localizedDescription]);
+     }];
 }
 
 

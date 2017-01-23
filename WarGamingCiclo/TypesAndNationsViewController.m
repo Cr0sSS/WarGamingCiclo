@@ -51,6 +51,22 @@ static NSString* const typeCellIdentifier = @"TypeCell";
     self.collectionView.collectionViewLayout = layout;
     
     [self fillMainArrays];
+    [self requestDataFromWiki];
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+- (void)fillMainArrays {
+    self.nationsArray = [[DataManager sharedManager] getAllEntities:@"Nation"];
+    self.typesArray = [[DataManager sharedManager] getAllEntities:@"ShipType"];
+}
+
+
+- (void)requestDataFromWiki {
     
     [[ServerManager sharedManager]
      getTypesAndNationsFromServerOnSuccess:^(NSDictionary* response) {
@@ -85,15 +101,15 @@ static NSString* const typeCellIdentifier = @"TypeCell";
                                                         name:shipsNames[i]
                                                   imagesDict:responsedImages[typeID]];
              }
-
+             
              [[DataManager sharedManager] saveContext];
              [self fillMainArrays];
-
+             
              [self.collectionView reloadData];
              
              NSLog(@"Нации и Классы созданы с нуля");
-
-         //// Если в базе старая информация
+             
+             //// Если в базе старая информация
          } else {
              Nation* someNation = [self.nationsArray firstObject];
              
@@ -125,17 +141,6 @@ static NSString* const typeCellIdentifier = @"TypeCell";
      onFailure:^(NSError *error) {
          NSLog(@"NATIONS&TYPES ERROR\n%@", [error localizedDescription]);
      }];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
-- (void)fillMainArrays {
-    self.nationsArray = [[DataManager sharedManager] getAllEntities:@"Nation"];
-    self.typesArray = [[DataManager sharedManager] getAllEntities:@"ShipType"];
 }
 
 

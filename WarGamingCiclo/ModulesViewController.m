@@ -37,10 +37,15 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
     self.navigationItem.title = @"Модули";
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
     
+    [self fillMainArray];
+}
+
+
+- (void)fillMainArray {
+    
     self.modulesArray = [[DataManager sharedManager] getEntities:@"Module" forShip:self.ship];
     
     NSArray* moduleIDsArray = [NSKeyedUnarchiver unarchiveObjectWithData:self.ship.moduleIDs];
-    
     NSInteger currentModuleCounter = 0;
     
     for (NSArray* group in self.modulesArray) {
@@ -68,7 +73,7 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
                      NSLog(@"MODULE CREATE REQUEST ERROR\n%@", [error localizedDescription]);
                  }];
                 
-            //// Модуль есть в базе, добавить текущий Корабль
+                //// Модуль есть в базе, добавить текущий Корабль
             } else {
                 Module* module = [resultArray firstObject];
                 [[ParsingManager sharedManager] module:module addShip:self.ship];

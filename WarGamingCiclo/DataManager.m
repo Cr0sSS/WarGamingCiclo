@@ -137,7 +137,6 @@ static NSArray* upgradeTypes;
     NSSortDescriptor* nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     [request setSortDescriptors:@[tierDescriptor, nameDescriptor]];
 
-    
     NSArray* resultArray = [self.persistentContainer.viewContext executeFetchRequest:request error:nil];
     
     return resultArray;

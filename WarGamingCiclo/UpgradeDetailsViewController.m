@@ -33,25 +33,7 @@ static float tableWidth = 248.f;
     self.statNames = [NSMutableArray new];
     self.statValues = [NSMutableArray new];
     
-    [self.statNames addObject:self.upgrade.name];
-    [self.statValues addObject:[NSString stringWithFormat:@"Mod.%d", self.upgrade.mode]];
-    
-    NSArray* stats = [NSKeyedUnarchiver unarchiveObjectWithData:self.upgrade.stats];
-    
-    for (NSInteger i = 0; i < [stats count]; i = i + 2) {
-        NSString* value = [stats objectAtIndex:i + 1];
-        
-        if (![value hasPrefix:@"NA"]) {
-            [self.statNames addObject:[stats objectAtIndex:i]];
-            [self.statValues addObject:value];
-        }
-    }
-    
-    /* 
-    // На текущий момент стоимость всех модернизаций нулевая. Раскомментировать, когда будет исправлено
-    [self.statNames addObject:@"Стоимость"];
-    [self.statValues addObject:[NSString stringWithFormat:@"%ld", self.upgrade.price]];
-    */
+    [self fillMainArrays];
     
     [self setPreferredContentSize:CGSizeMake(tableWidth, statCellHeight * [self.statNames count])];
 }
@@ -59,6 +41,30 @@ static float tableWidth = 248.f;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+
+- (void)fillMainArrays {
+    
+    [self.statNames addObject:self.upgrade.name];
+    [self.statValues addObject:[NSString stringWithFormat:@"Mod.%d", self.upgrade.mode]];
+    
+    NSArray* stats = [NSKeyedUnarchiver unarchiveObjectWithData:self.upgrade.stats];
+    
+    for (NSInteger i = 0; i < [stats count]; i = i + 2) {
+        NSString* value = stats[i + 1];
+        
+        if (![value hasPrefix:@"NA"]) {
+            [self.statNames addObject:stats[i]];
+            [self.statValues addObject:value];
+        }
+    }
+    
+    /*
+    // На текущий момент стоимость всех модернизаций нулевая. Раскомментировать, когда будет исправлено
+    [self.statNames addObject:@"Стоимость"];
+    [self.statValues addObject:[NSString stringWithFormat:@"%d", self.upgrade.price]];
+    */
 }
 
 
@@ -89,8 +95,8 @@ static float tableWidth = 248.f;
     
     UpgradeStatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
     
-    cell.nameLabel.text = [self.statNames objectAtIndex:indexPath.row];
-    cell.valueLabel.text = [self.statValues objectAtIndex:indexPath.row];
+    cell.nameLabel.text = self.statNames[indexPath.row];
+    cell.valueLabel.text = self.statValues[indexPath.row];
     
     return cell;
 }

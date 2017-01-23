@@ -26,7 +26,7 @@ static float vcWidth = 340.f;
                                        attributes:@{NSFontAttributeName:self.textView.font}
                                           context:nil];
     
-    [self setPreferredContentSize:CGSizeMake(rect.size.width, rect.size.height + 22.f)];
+    [self setPreferredContentSize:CGSizeMake(rect.size.width, rect.size.height + 28.f)];
 }
 
 
