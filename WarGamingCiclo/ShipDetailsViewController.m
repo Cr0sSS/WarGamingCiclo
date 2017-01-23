@@ -10,6 +10,7 @@
 #import "ModulesViewController.h"
 #import "UpgradesViewController.h"
 #import "ShipDescriptionViewController.h"
+#import "ErrorController.h"
 
 #import "UnitHeaderCell.h"
 #import "LargeImageCell.h"
@@ -119,6 +120,8 @@ static NSArray* groupNames;
 }
 
 
+#pragma mark - Data
+
 - (void)refreshShipDetails {
     
     if (![self.ship.detailsRefreshDate isEqual:[ServerManager sharedManager].currentDate]) {
@@ -130,39 +133,12 @@ static NSArray* groupNames;
              [[DataManager sharedManager] saveContext];
              [self shareStatsArrays];
              [self.tableView reloadData];
-             
-             NSLog(@"%@ был обновлен в деталях", self.ship.name);
          }
          
          onFailure:^(NSError *error) {
-             NSLog(@"SHIP DETAILS ERROR\n%@", [error localizedDescription]);
+             [self showError:error withTitle:@"Загрузка детального инфо: Ошибка"];
          }];
     }
-}
-
-
-- (void)actionShowDescription:(UIBarButtonItem*)sender {
-    
-    ShipDescriptionViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShipDescriptionVC"];
-    vc.text = self.ship.review;
-    vc.modalPresentationStyle = UIModalPresentationPopover;
-    
-    UIPopoverPresentationController *popController = vc.popoverPresentationController;
-    
-    if (popController) {
-        popController.delegate = self;
-        
-        popController.barButtonItem = sender;
-        [popController setBackgroundColor:vc.textView.backgroundColor];
-    }
-    
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
-
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
-                                                               traitCollection:(UITraitCollection *)traitCollection {
-    return UIModalPresentationNone;
 }
 
 
@@ -193,7 +169,6 @@ static NSArray* groupNames;
 
 
 - (void)shareData:(NSData*)data toNames:(NSMutableArray*)names values:(NSMutableArray*)values {
-    
     if (data) {
         NSArray* array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         [self shareArray:array toNames:names values:values];
@@ -212,7 +187,15 @@ static NSArray* groupNames;
             [values addObject:value];
         }
     }
-    
+}
+
+
+#pragma mark - Error
+
+- (void)showError:(NSError*)error withTitle:(NSString*)title{
+    ErrorController* ec = [ErrorController errorControllerWithTitle:title
+                                                            message:error.localizedDescription];
+    [self presentViewController:ec animated:YES completion:nil];
 }
 
 
@@ -259,7 +242,7 @@ static NSArray* groupNames;
             break;
 
         default:
-            return [[[self.additionalBatteries objectAtIndex:section - sectionShift] objectAtIndex:0] count];
+            return [self.additionalBatteries[section - sectionShift][0] count];
             break;
     }
 }
@@ -292,7 +275,7 @@ static NSArray* groupNames;
                                                [weakCell layoutSubviews];
                                            }
                                            failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                                               NSLog(@"ERROR\nLarge image for ship %@ load fail\n%@", self.ship.name, [error localizedDescription]);
+                                               [self showError:error withTitle:@"Ошибка загрузки изображения"];
                                            }];
             return cell;
             
@@ -377,7 +360,6 @@ static NSArray* groupNames;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        
         if (indexPath.row == 0) {
             return 27.f;
             
@@ -490,6 +472,32 @@ static NSArray* groupNames;
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     return (indexPath.section == 0 && indexPath.row > 1) ? YES : NO;
+}
+
+
+#pragma mark - Popover
+
+- (void)actionShowDescription:(UIBarButtonItem*)sender {
+    
+    ShipDescriptionViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShipDescriptionVC"];
+    vc.text = self.ship.review;
+    vc.modalPresentationStyle = UIModalPresentationPopover;
+    
+    UIPopoverPresentationController *popController = vc.popoverPresentationController;
+    
+    if (popController) {
+        popController.delegate = self;
+        
+        popController.barButtonItem = sender;
+    }
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+                                                               traitCollection:(UITraitCollection *)traitCollection {
+    return UIModalPresentationNone;
 }
 
 @end

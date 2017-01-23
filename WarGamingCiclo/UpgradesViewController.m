@@ -8,6 +8,7 @@
 
 #import "UpgradesViewController.h"
 #import "UpgradeDetailsViewController.h"
+#import "ErrorController.h"
 
 #import "UpgradeCell.h"
 
@@ -41,6 +42,13 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 }
 
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Data
+
 - (void)fillMainArray {
     
     self.upgradesArray = [[DataManager sharedManager] getEntities:@"Upgrade" forShip:self.ship];
@@ -65,21 +73,16 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
                      
                      [[DataManager sharedManager] upgradeWithResponse:response forShip:self.ship];
                      [self reloadData];
-                     
-                     NSLog(@"Апгрейд загружен");
                  }
-                 
                  onFailure:^(NSError *error) {
-                     NSLog(@"UPGRADE CREATE REQUEST ERROR\n%@", [error localizedDescription]);
+                     [self showError:error withTitle:@"Загрузка инфо модернизации: Ошибка"];
                  }];
                 
-                //// Апгрейд есть в базе, добавить текущий Корабль
+            //// Апгрейд есть в базе, добавить текущий Корабль
             } else {
                 Upgrade* upgrade = [resultArray firstObject];
                 [[ParsingManager sharedManager] upgrade:upgrade addShip:self.ship];
                 [self reloadData];
-                
-                NSLog(@"Апгрейду добавлен корабль");
             }
         }
     }
@@ -97,12 +100,9 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
                                             fillWithResponse:response
                                                      forShip:self.ship];
                      [self reloadData];
-                     
-                     NSLog(@"Апгрейд обновлен");
                  }
-                 
                  onFailure:^(NSError *error) {
-                     NSLog(@"UPGRADE UPDATE REQUEST ERROR\n%@", [error localizedDescription]);
+                     [self showError:error withTitle:@"Загрузка инфо модернизации: Ошибка"];
                  }];
             }
         }
@@ -118,8 +118,12 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - Error
+
+- (void)showError:(NSError*)error withTitle:(NSString*)title{
+    ErrorController* ec = [ErrorController errorControllerWithTitle:title
+                                                            message:error.localizedDescription];
+    [self presentViewController:ec animated:YES completion:nil];
 }
 
 
@@ -158,10 +162,8 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
                                           }
      
                                           failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                                              NSLog(@"ERROR: Image for upgrade %@ load fail\n%@", upgrade.name, [error localizedDescription]);
+                                              [self showError:error withTitle:@"Ошибка загрузки изображения"];
     }];
-    
-    
     return cell;
 }
 
@@ -173,10 +175,7 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
+#pragma mark - Popover
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -193,7 +192,6 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
         
         popController.sourceView = [collectionView cellForItemAtIndexPath:indexPath];
         popController.sourceRect = [[collectionView cellForItemAtIndexPath:indexPath] bounds];
-        [popController setBackgroundColor:vc.tableView.backgroundColor];
     }
     
     [self presentViewController:vc animated:YES completion:nil];

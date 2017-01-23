@@ -38,6 +38,7 @@
 		84F0A3361E137C860084F57A /* ParsingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F0A3351E137C860084F57A /* ParsingManager.m */; };
 		84F47FD01DF7E43100FCE495 /* ShipGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F47FCF1DF7E43100FCE495 /* ShipGroupCell.m */; };
 		84F47FD31DF7E4E500FCE495 /* GroupOfShipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F47FD21DF7E4E500FCE495 /* GroupOfShipsViewController.m */; };
+		84F60B361E3670C200EB7874 /* ErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F60B351E3670C200EB7874 /* ErrorController.m */; };
 		BEBA5394E9EC3AC2AB378DC9 /* libPods-WarGamingCiclo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE156B473CEC2EB833523185 /* libPods-WarGamingCiclo.a */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,8 @@
 		84F47FCF1DF7E43100FCE495 /* ShipGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipGroupCell.m; sourceTree = "<group>"; };
 		84F47FD11DF7E4E500FCE495 /* GroupOfShipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupOfShipsViewController.h; sourceTree = "<group>"; };
 		84F47FD21DF7E4E500FCE495 /* GroupOfShipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupOfShipsViewController.m; sourceTree = "<group>"; };
+		84F60B341E3670C200EB7874 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
+		84F60B351E3670C200EB7874 /* ErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorController.m; sourceTree = "<group>"; };
 		962B44B5A721986E36AA1DA6 /* Pods-WarGamingCiclo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WarGamingCiclo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WarGamingCiclo/Pods-WarGamingCiclo.debug.xcconfig"; sourceTree = "<group>"; };
 		B3AE22252DFEE045858B571F /* Pods-WarGamingCiclo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WarGamingCiclo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WarGamingCiclo/Pods-WarGamingCiclo.release.xcconfig"; sourceTree = "<group>"; };
 		DE156B473CEC2EB833523185 /* libPods-WarGamingCiclo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WarGamingCiclo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +208,8 @@
 				843A35691E07EB42000B65FD /* UpgradesViewController.m */,
 				84571B051E0BBD8D0022A23B /* UpgradeDetailsViewController.h */,
 				84571B061E0BBD8D0022A23B /* UpgradeDetailsViewController.m */,
+				84F60B341E3670C200EB7874 /* ErrorController.h */,
+				84F60B351E3670C200EB7874 /* ErrorController.m */,
 				8453EECA1DF6807C004668A8 /* Main.storyboard */,
 				8453EED01DF6807C004668A8 /* Assets.xcassets */,
 				8453EED21DF6807C004668A8 /* LaunchScreen.storyboard */,
@@ -560,6 +565,7 @@
 				843A35611E07BE18000B65FD /* GroupInStatsCell.m in Sources */,
 				8445E4A11DF93052000700FC /* LargeImageCell.m in Sources */,
 				8453EF001DF696BA004668A8 /* TypesAndNationsViewController.m in Sources */,
+				84F60B361E3670C200EB7874 /* ErrorController.m in Sources */,
 				843A356A1E07EB42000B65FD /* UpgradesViewController.m in Sources */,
 				84F0A3361E137C860084F57A /* ParsingManager.m in Sources */,
 				8453EECF1DF6807C004668A8 /* WarGamingCiclo.xcdatamodeld in Sources */,

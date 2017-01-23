@@ -27,6 +27,8 @@ static float vcWidth = 340.f;
                                           context:nil];
     
     [self setPreferredContentSize:CGSizeMake(rect.size.width, rect.size.height + 28.f)];
+    
+    [self.popoverPresentationController setBackgroundColor:self.textView.backgroundColor];
 }
 
 

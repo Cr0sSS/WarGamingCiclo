@@ -72,10 +72,12 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          if (success) {
                              success(response);
                          }
-    }
+                     }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                         NSLog(@"SERVER MANAGER ERROR\nLoading types&nations:%@", [error localizedDescription]);
-    }];
+                         if (failure) {
+                             failure(error);
+                         }
+                     }];
 }
 
 
@@ -110,11 +112,12 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          if (success) {
                              success(responseObject);
                          }
-    }
+                     }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                         NSLog(@"SERVER MANAGER ERROR\nLoading group of ships:%@", [error localizedDescription]);
-
-    }];
+                         if (failure) {
+                             failure(error);
+                         }
+                     }];
 }
 
 
@@ -142,8 +145,10 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          }
     }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                         NSLog(@"SERVER MANAGER ERROR\nLoading ship details:%@", [error localizedDescription]);
-    }];
+                         if (failure) {
+                             failure(error);
+                         }
+                     }];
 }
 
 
@@ -167,7 +172,9 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          }
                      }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                         NSLog(@"SERVER MANAGER ERROR\nLoading module details:%@", [error localizedDescription]);
+                         if (failure) {
+                             failure(error);
+                         }
                      }];
 }
 
@@ -192,7 +199,9 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          }
                      }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                         NSLog(@"SERVER MANAGER ERROR\nLoading upgrade details:%@", [error localizedDescription]);
+                         if (failure) {
+                             failure(error);
+                         }
                      }];
 }
 
