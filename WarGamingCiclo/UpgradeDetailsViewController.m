@@ -36,6 +36,8 @@ static float tableWidth = 248.f;
     [self fillMainArrays];
     
     [self setPreferredContentSize:CGSizeMake(tableWidth, statCellHeight * [self.statNames count])];
+    
+    [self.popoverPresentationController setBackgroundColor:self.tableView.backgroundColor];
 }
 
 
@@ -43,6 +45,19 @@ static float tableWidth = 248.f;
     [super didReceiveMemoryWarning];
 }
 
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
+        
+    } else {
+        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+    }
+}
+
+
+#pragma mark - Data
 
 - (void)fillMainArrays {
     
@@ -59,23 +74,11 @@ static float tableWidth = 248.f;
             [self.statValues addObject:value];
         }
     }
-    
     /*
     // На текущий момент стоимость всех модернизаций нулевая. Раскомментировать, когда будет исправлено
     [self.statNames addObject:@"Стоимость"];
     [self.statValues addObject:[NSString stringWithFormat:@"%d", self.upgrade.price]];
     */
-}
-
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
-        
-    } else {
-        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
-    }
 }
 
 

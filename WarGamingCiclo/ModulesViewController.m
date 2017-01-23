@@ -8,6 +8,7 @@
 
 #import "ModulesViewController.h"
 #import "ModuleDetailsViewController.h"
+#import "ErrorController.h"
 
 #import "ModuleCell.h"
 
@@ -41,6 +42,13 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Data
+
 - (void)fillMainArray {
     
     self.modulesArray = [[DataManager sharedManager] getEntities:@"Module" forShip:self.ship];
@@ -65,21 +73,16 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
                      
                      [[DataManager sharedManager] moduleWithResponse:response forShip:self.ship];
                      [self reloadData];
-                     
-                     NSLog(@"Модуль загружен");
                  }
-                 
                  onFailure:^(NSError *error) {
-                     NSLog(@"MODULE CREATE REQUEST ERROR\n%@", [error localizedDescription]);
+                     [self showError:error withTitle:@"Загрузка инфо модуля: Ошибка"];
                  }];
                 
-                //// Модуль есть в базе, добавить текущий Корабль
+            //// Модуль есть в базе, добавить текущий Корабль
             } else {
                 Module* module = [resultArray firstObject];
                 [[ParsingManager sharedManager] module:module addShip:self.ship];
                 [self reloadData];
-                
-                NSLog(@"Модулю добавлен Корабль ");
             }
         }
     }
@@ -87,8 +90,8 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
     for (NSArray* group in self.modulesArray) {
         for (Module* module in group) {
             
+            //// Данные Модуля устарели, обновление
             if (![module.refreshDate isEqual:[ServerManager sharedManager].currentDate]) {
-                //// Данные Модуля устарели, обновление
                 [[ServerManager sharedManager]
                  getModuleFromServerWithID:module.moduleID
                  onSuccess:^(NSDictionary *response) {
@@ -97,12 +100,9 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
                                            fillWithResponse:response
                                                     forShip:self.ship];
                      [self reloadData];
-                     
-                     NSLog(@"Модуль обновлен");
                  }
-                 
                  onFailure:^(NSError *error) {
-                     NSLog(@"MODULE UPDATE REQUEST ERROR\n%@", [error localizedDescription]);
+                     [self showError:error withTitle:@"Загрузка инфо модуля: Ошибка"];
                  }];
             }
         }
@@ -117,8 +117,12 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - Error
+
+- (void)showError:(NSError*)error withTitle:(NSString*)title{
+    ErrorController* ec = [ErrorController errorControllerWithTitle:title
+                                                            message:error.localizedDescription];
+    [self presentViewController:ec animated:YES completion:nil];
 }
 
 
@@ -155,9 +159,8 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
                                              [weakCell layoutSubviews];
                                          }
                                          failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                                             NSLog(@"ERROR: Image for module %@ load fail\n%@", module.name, [error localizedDescription]);
+                                             [self showError:error withTitle:@"Ошибка загрузки изображения"];
     }];
-    
     return cell;
 }
 
@@ -169,8 +172,9 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
+#pragma mark - Popover
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     ModuleDetailsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ModuleDetailsVC"];
     
     vc.module = self.modulesArray[indexPath.section][indexPath.row];
@@ -184,7 +188,6 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
         
         popController.sourceView = [collectionView cellForItemAtIndexPath:indexPath];
         popController.sourceRect = [[collectionView cellForItemAtIndexPath:indexPath] bounds];
-        [popController setBackgroundColor:vc.tableView.backgroundColor];
     }
 
     [self presentViewController:vc animated:YES completion:nil];

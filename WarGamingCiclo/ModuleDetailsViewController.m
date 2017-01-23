@@ -36,8 +36,28 @@ static float tableWidth = 248.f;
     [self fillMainArrays];
     
     [self setPreferredContentSize:CGSizeMake(tableWidth, statCellHeight * [self.statNames count])];
+    
+    [self.popoverPresentationController setBackgroundColor:self.tableView.backgroundColor];
 }
 
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
+        
+    } else {
+        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+    }
+}
+
+
+#pragma mark - Data
 
 - (void)fillMainArrays {
     
@@ -62,22 +82,6 @@ static float tableWidth = 248.f;
         
     } else {
         [self.statValues addObject:[NSString stringWithFormat:@"%d", self.module.price]];
-    }
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
-        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionRight;
-        
-    } else {
-        self.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
     }
 }
 

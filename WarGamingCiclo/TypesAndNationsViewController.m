@@ -8,6 +8,7 @@
 
 #import "TypesAndNationsViewController.h"
 #import "GroupOfShipsViewController.h"
+#import "ErrorController.h"
 
 #import "NationCell.h"
 #import "TypeCell.h"
@@ -60,6 +61,8 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 }
 
 
+#pragma mark - Data
+
 - (void)fillMainArrays {
     self.nationsArray = [[DataManager sharedManager] getAllEntities:@"Nation"];
     self.typesArray = [[DataManager sharedManager] getAllEntities:@"ShipType"];
@@ -107,9 +110,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
              
              [self.collectionView reloadData];
              
-             NSLog(@"Нации и Классы созданы с нуля");
-             
-             //// Если в базе старая информация
+         //// Если в базе старая информация
          } else {
              Nation* someNation = [self.nationsArray firstObject];
              
@@ -132,15 +133,22 @@ static NSString* const typeCellIdentifier = @"TypeCell";
                  
                  [[DataManager sharedManager] saveContext];
                  [self.collectionView reloadData];
-                 
-                 NSLog(@"Нации и Классы обновлены");
              }
          }
      }
      
      onFailure:^(NSError *error) {
-         NSLog(@"NATIONS&TYPES ERROR\n%@", [error localizedDescription]);
+         [self showError:error withTitle:@"Загрузка типов: Ошибка"];
      }];
+}
+
+
+#pragma mark - Error
+
+- (void)showError:(NSError*)error withTitle:(NSString*)title{
+    ErrorController* ec = [ErrorController errorControllerWithTitle:title
+                                                            message:error.localizedDescription];
+    [self presentViewController:ec animated:YES completion:nil];
 }
 
 
@@ -188,9 +196,8 @@ static NSString* const typeCellIdentifier = @"TypeCell";
         }
          
                         failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                            NSLog(@"ERROR: Image for type %@ load fail\n%@", type.name, [error localizedDescription]);
+                            [self showError:error withTitle:@"Ошибка загрузки изображения"];
         }];
-        
         return cell;
     }
 }
@@ -198,7 +205,6 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout
                                             sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     return (indexPath.section == 0) ? CGSizeMake(120.f, 86.f) : CGSizeMake(87.f, 46.f);
 }
 

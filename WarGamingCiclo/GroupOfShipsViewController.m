@@ -8,6 +8,7 @@
 
 #import "GroupOfShipsViewController.h"
 #import "ShipDetailsViewController.h"
+#import "ErrorController.h"
 
 #import "ShipGroupCell.h"
 
@@ -72,6 +73,8 @@ static NSDictionary* typeNames;
 }
 
 
+#pragma mark - Data
+
 - (void)fillMainArray {
     self.shipsArray = [[DataManager sharedManager] getShipsForNation:self.nation
                                                           orShipType:self.shipType];
@@ -99,8 +102,6 @@ static NSDictionary* typeNames;
                      [[ParsingManager sharedManager] ship:ship
                                                fillWithID:ship.shipID
                                                   details:response[ship.shipID]];
-                     
-                     NSLog(@"%@ был обновлен в основе", ship.name);
                  }
              }
              
@@ -117,14 +118,21 @@ static NSDictionary* typeNames;
              self.shipsArray = [[DataManager sharedManager] getShipsForNation:self.nation orShipType:self.shipType];
              
              [self.collectionView reloadData];
-             
-             NSLog(@"Группа кораблей была догружена");
          }
      }
      
      onFailure:^(NSError *error) {
-         NSLog(@"GROUPS OF SHIPS ERROR\n%@", [error localizedDescription]);
+         [self showError:error withTitle:@"Загрузка группы: Ошибка"];
      }];
+}
+
+
+#pragma mark - Error
+
+- (void)showError:(NSError*)error withTitle:(NSString*)title{
+    ErrorController* ec = [ErrorController errorControllerWithTitle:title
+                                                            message:error.localizedDescription];
+    [self presentViewController:ec animated:YES completion:nil];
 }
 
 
@@ -161,7 +169,7 @@ static NSDictionary* typeNames;
                         [weakCell layoutSubviews];
                     }
                     failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                        NSLog(@"ERROR: Medium image for ship %@ load fail\n%@", ship.name, [error localizedDescription]);
+                        [self showError:error withTitle:@"Ошибка загрузки изображения"];
     }];
     
     NSURL* typeURL;
@@ -185,7 +193,7 @@ static NSDictionary* typeNames;
                         [weakCell layoutSubviews];
                     }
                     failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                        NSLog(@"ERROR: Type image for ship %@ load fail\n%@", ship.name, [error localizedDescription]);
+                        [self showError:error withTitle:@"Ошибка загрузки изображения"];
     }];
     
     return cell;
