@@ -33,16 +33,24 @@ static float tableWidth = 248.f;
     self.statNames = [NSMutableArray new];
     self.statValues = [NSMutableArray new];
     
+    [self fillMainArrays];
+    
+    [self setPreferredContentSize:CGSizeMake(tableWidth, statCellHeight * [self.statNames count])];
+}
+
+
+- (void)fillMainArrays {
+    
     [self.statNames addObject:self.module.typeLocalized];
     [self.statValues addObject:self.module.name];
     
     NSArray* stats = [NSKeyedUnarchiver unarchiveObjectWithData:self.module.stats];
     
     for (NSInteger i = 0; i < [stats count]; i = i + 2) {
-        NSString* value = [stats objectAtIndex:i + 1];
+        NSString* value = stats[i + 1];
         
         if (![value hasPrefix:@"NA"]) {
-            [self.statNames addObject:[stats objectAtIndex:i]];
+            [self.statNames addObject:stats[i]];
             [self.statValues addObject:value];
         }
     }
@@ -55,8 +63,6 @@ static float tableWidth = 248.f;
     } else {
         [self.statValues addObject:[NSString stringWithFormat:@"%d", self.module.price]];
     }
-    
-    [self setPreferredContentSize:CGSizeMake(tableWidth, statCellHeight * [self.statNames count])];
 }
 
 
@@ -91,8 +97,8 @@ static float tableWidth = 248.f;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ModuleStatCell *cell = [tableView dequeueReusableCellWithIdentifier:statCellIdentifier forIndexPath:indexPath];
     
-    cell.nameLabel.text = [self.statNames objectAtIndex:indexPath.row];
-    cell.valueLabel.text = [self.statValues objectAtIndex:indexPath.row];
+    cell.nameLabel.text = self.statNames[indexPath.row];
+    cell.valueLabel.text = self.statValues[indexPath.row];
     
     return cell;
 }

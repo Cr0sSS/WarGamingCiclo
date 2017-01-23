@@ -34,8 +34,6 @@
 @property (strong, nonatomic) NSMutableArray* mainBatteryNames;
 @property (strong, nonatomic) NSMutableArray* mainBatteryValues;
 
-@property (strong, nonatomic) NSMutableArray* additionalBatteries;
-
 @property (strong, nonatomic) NSMutableArray* antiAircraftNames;
 @property (strong, nonatomic) NSMutableArray* antiAircraftValues;
 
@@ -50,6 +48,8 @@
 
 @property (strong, nonatomic) NSMutableArray* airGroupNames;
 @property (strong, nonatomic) NSMutableArray* airGroupValues;
+
+@property (strong, nonatomic) NSMutableArray* additionalBatteries;
 
 @end
 
@@ -72,12 +72,14 @@ static NSArray* groupNames;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        tierValues = @[@"I",@"II",@"II",@"IV",@"V",@"VI",@"VII",@"VIII",@"IX",@"X"];
+        tierValues = @[@"I",@"II",@"III",@"IV",@"V",@"VI",@"VII",@"VIII",@"IX",@"X"];
         groupNames = @[@"Модули",@"Модернизации"];
     });
     
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
     self.tableView.backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
+    
+    self.navigationItem.title = self.ship.name;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks
@@ -89,8 +91,6 @@ static NSArray* groupNames;
     
     self.mainBatteryNames = [NSMutableArray new];
     self.mainBatteryValues = [NSMutableArray new];
-    
-    self.additionalBatteries = [NSMutableArray new];
     
     self.antiAircraftNames = [NSMutableArray new];
     self.antiAircraftValues = [NSMutableArray new];
@@ -107,11 +107,20 @@ static NSArray* groupNames;
     self.airGroupNames = [NSMutableArray new];
     self.airGroupValues = [NSMutableArray new];
     
-    self.navigationItem.title = self.ship.name;
+    self.additionalBatteries = [NSMutableArray new];
     
     [self shareStatsArrays];
+    [self refreshShipDetails];
+}
 
-    //// Обновление/загрузка детальной информации о корабле
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+- (void)refreshShipDetails {
+    
     if (![self.ship.detailsRefreshDate isEqual:[ServerManager sharedManager].currentDate]) {
         
         [[ServerManager sharedManager]
@@ -121,7 +130,7 @@ static NSArray* groupNames;
              [[DataManager sharedManager] saveContext];
              [self shareStatsArrays];
              [self.tableView reloadData];
-              
+             
              NSLog(@"%@ был обновлен в деталях", self.ship.name);
          }
          
@@ -129,11 +138,6 @@ static NSArray* groupNames;
              NSLog(@"SHIP DETAILS ERROR\n%@", [error localizedDescription]);
          }];
     }
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 
@@ -200,11 +204,11 @@ static NSArray* groupNames;
 - (void)shareArray:(NSArray*)array toNames:(NSMutableArray*)names values:(NSMutableArray*)values {
     
     for (NSInteger i = 0; i < [array count]; i = i + 2) {
-        NSString* value = [array objectAtIndex:i + 1];
+        NSString* value = array[i + 1];
         
         //// Добавляет данные для отображения только в случае их наличия
         if (![value hasPrefix:@"NA"]) {
-            [names addObject:[array objectAtIndex:i]];
+            [names addObject:array[i]];
             [values addObject:value];
         }
     }
@@ -268,19 +272,9 @@ static NSArray* groupNames;
         if (indexPath.row == 0) {
             UnitHeaderCell* cell = [tableView dequeueReusableCellWithIdentifier:headerCellIdentifier forIndexPath:indexPath];
             
-            NSString* typeString = self.ship.type.name;
+            NSString* typeString = self.ship.type.name ? self.ship.type.name : @"(класс неизвестен)";
+            cell.classLabel.text = self.ship.isPremium ? [NSString stringWithFormat:@"Премиум %@", typeString] : typeString;
             
-            if (!typeString) {
-                typeString = @"(класс неизвестен)";
-            }
-
-            if (self.ship.isPremium) {
-                cell.classLabel.text = [NSString stringWithFormat:@"Премиум %@", typeString];
-                
-            } else {
-                cell.classLabel.text = typeString;
-            }
-
             cell.tierLabel.text = tierValues[self.ship.tier - 1];
             return cell;
             

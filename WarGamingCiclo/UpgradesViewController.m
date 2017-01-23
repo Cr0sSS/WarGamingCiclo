@@ -37,10 +37,15 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
     self.navigationItem.title = @"Модернизации";
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
     
+    [self fillMainArray];
+}
+
+
+- (void)fillMainArray {
+    
     self.upgradesArray = [[DataManager sharedManager] getEntities:@"Upgrade" forShip:self.ship];
     
     NSArray* upgradeIDsArray = [NSKeyedUnarchiver unarchiveObjectWithData:self.ship.upgradeIDs];
-    
     NSInteger currentUpgradeCounter = 0;
     
     for (NSArray* group in self.upgradesArray) {
@@ -56,19 +61,19 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
             if ([resultArray count] == 0) {
                 [[ServerManager sharedManager]
                  getUpgradeFromServerWithID:upgradeID
-                  onSuccess:^(NSDictionary *response) {
-                    
-                      [[DataManager sharedManager] upgradeWithResponse:response forShip:self.ship];
-                      [self reloadData];
-          
-                      NSLog(@"Апгрейд загружен");
-                  }
+                 onSuccess:^(NSDictionary *response) {
+                     
+                     [[DataManager sharedManager] upgradeWithResponse:response forShip:self.ship];
+                     [self reloadData];
+                     
+                     NSLog(@"Апгрейд загружен");
+                 }
                  
-                  onFailure:^(NSError *error) {
-                      NSLog(@"UPGRADE CREATE REQUEST ERROR\n%@", [error localizedDescription]);
-                }];
+                 onFailure:^(NSError *error) {
+                     NSLog(@"UPGRADE CREATE REQUEST ERROR\n%@", [error localizedDescription]);
+                 }];
                 
-            //// Апгрейд есть в базе, добавить текущий Корабль
+                //// Апгрейд есть в базе, добавить текущий Корабль
             } else {
                 Upgrade* upgrade = [resultArray firstObject];
                 [[ParsingManager sharedManager] upgrade:upgrade addShip:self.ship];
