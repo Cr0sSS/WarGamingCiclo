@@ -50,7 +50,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
     layout.itemSize = CGSizeMake(120.f, 86.f);
     
     self.collectionView.collectionViewLayout = layout;
-    
+        
     [self fillMainArrays];
     [self requestDataFromWiki];
 }
@@ -152,7 +152,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 }
 
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 2;
@@ -209,7 +209,7 @@ static NSString* const typeCellIdentifier = @"TypeCell";
 }
 
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark -  Collection View Delegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;

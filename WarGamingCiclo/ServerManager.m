@@ -10,13 +10,13 @@
 #import "ParsingManager.h"
 
 #import "AFNetworking.h"
+#import <AFNetworkActivityIndicatorManager.h>
 
 #import "Nation+CoreDataClass.h"
 #import "ShipType+CoreDataClass.h"
 #import "Ship+CoreDataClass.h"
 #import "Module+CoreDataClass.h"
 #import "Upgrade+CoreDataClass.h"
-
 
 @interface ServerManager()
 
@@ -30,7 +30,6 @@
 static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 
 + (ServerManager*)sharedManager {
-    
     static ServerManager* manager = nil;
     
     static dispatch_once_t onceToken;
@@ -54,6 +53,20 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
 }
 
 
+#pragma mark - Network Activity Indicator
+
+- (void)startSingleNetworkActivity {
+    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
+}
+
+
+- (void)finishSingleNetworkActivity {
+    [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+}
+
+
+#pragma mark - API methods
+
 - (void)getTypesAndNationsFromServerOnSuccess:(void(^)(NSDictionary* response))success
                                      onFailure:(void(^)(NSError* error))failure {
     
@@ -61,6 +74,7 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                              @"language" : @"ru",
                              @"fields" : @"ship_types,ship_type_images,ship_nations,ships_updated_at"};
     
+    [self startSingleNetworkActivity];
     [self.sessionManager GET:@"info/"
                   parameters:params
                     progress:nil
@@ -68,13 +82,15 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          
                          NSDictionary* response = responseObject[@"data"];
                          [ServerManager sharedManager].currentDate = [response[@"ships_updated_at"] stringValue];
-                                                  
+                         
                          if (success) {
+                             [self finishSingleNetworkActivity];
                              success(response);
                          }
                      }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          if (failure) {
+                             [self finishSingleNetworkActivity];
                              failure(error);
                          }
                      }];
@@ -104,17 +120,20 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                              @"fields" : @"ship_id,name,is_premium,tier,type,nation,images",
                              sortKey : sortObj};
     
+    [self startSingleNetworkActivity];
     [self.sessionManager GET:@"ships/"
                   parameters:params
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          
                          if (success) {
+                             [self finishSingleNetworkActivity];
                              success(responseObject);
                          }
                      }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          if (failure) {
+                             [self finishSingleNetworkActivity];
                              failure(error);
                          }
                      }];
@@ -129,11 +148,12 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                              @"language" : @"ru",
                              @"ship_id" : ship.shipID};
     
+    [self startSingleNetworkActivity];
     [self.sessionManager GET:@"ships/"
                   parameters:params
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                         
+
                          NSDictionary* response = responseObject[@"data"];
                          NSDictionary* shipDetails = response[ship.shipID];
                                                   
@@ -141,11 +161,13 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                                        parseFullDetailResponse:shipDetails];
                          
                          if (success) {
+                             [self finishSingleNetworkActivity];
                              success();
                          }
     }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          if (failure) {
+                             [self finishSingleNetworkActivity];
                              failure(error);
                          }
                      }];
@@ -160,6 +182,7 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                              @"language" : @"ru",
                              @"module_id" : moduleID};
     
+    [self startSingleNetworkActivity];
     [self.sessionManager GET:@"modules/"
                   parameters:params
                     progress:nil
@@ -168,11 +191,13 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          NSDictionary* response = responseObject[@"data"][moduleID];
                          
                          if (success) {
+                             [self finishSingleNetworkActivity];
                              success(response);
                          }
                      }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          if (failure) {
+                             [self finishSingleNetworkActivity];
                              failure(error);
                          }
                      }];
@@ -187,6 +212,7 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                              @"language" : @"ru",
                              @"upgrade_id" : upgradeID};
     
+    [self startSingleNetworkActivity];
     [self.sessionManager GET:@"upgrades/"
                   parameters:params
                     progress:nil
@@ -195,11 +221,13 @@ static NSString* const appID = @"8e83a4094b23556bd9f4a5a71aa5194d";
                          NSDictionary* response = responseObject[@"data"][upgradeID];
                          
                          if (success) {
+                             [self finishSingleNetworkActivity];
                              success(response);
                          }
                      }
                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          if (failure) {
+                             [self finishSingleNetworkActivity];
                              failure(error);
                          }
                      }];

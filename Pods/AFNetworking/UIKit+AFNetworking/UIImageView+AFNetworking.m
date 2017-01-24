@@ -21,6 +21,8 @@
 
 #import "UIImageView+AFNetworking.h"
 
+#import <AFNetworkActivityIndicatorManager.h>
+
 #import <objc/runtime.h>
 
 #if TARGET_OS_IOS || TARGET_OS_TV
@@ -90,6 +92,9 @@
         return;
     }
 
+    //// Свой код
+    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
+    
     [self cancelImageDownloadTask];
 
     AFImageDownloader *downloader = [[self class] sharedImageDownloader];
@@ -149,6 +154,10 @@
 }
 
 - (void)clearActiveDownloadInformation {
+    
+    //// Свой код
+    [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+    
     self.af_activeImageDownloadReceipt = nil;
 }
 

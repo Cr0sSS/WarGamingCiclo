@@ -75,14 +75,14 @@ static float tableWidth = 248.f;
         }
     }
     /*
-    // На текущий момент стоимость всех модернизаций нулевая. Раскомментировать, когда будет исправлено
+    // На данный момент (24.01.17) стоимость всех модернизаций нулевая. Раскомментировать, когда будет исправлено
     [self.statNames addObject:@"Стоимость"];
     [self.statValues addObject:[NSString stringWithFormat:@"%d", self.upgrade.price]];
     */
 }
 
 
-#pragma mark - UITableViewDataSource
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
