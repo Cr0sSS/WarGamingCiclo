@@ -126,7 +126,7 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [self.modulesArray count];
@@ -165,16 +165,21 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
 }
 
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - Collection View Delegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self callPopoverAtIndexPath:indexPath];
+}
+
+
 #pragma mark - Popover
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)callPopoverAtIndexPath:(NSIndexPath*)indexPath {
     ModuleDetailsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ModuleDetailsVC"];
     
     vc.module = self.modulesArray[indexPath.section][indexPath.row];
@@ -186,10 +191,10 @@ static NSString * const moduleCellIdentifier = @"ModuleCell";
     if (popController) {
         popController.delegate = self;
         
-        popController.sourceView = [collectionView cellForItemAtIndexPath:indexPath];
-        popController.sourceRect = [[collectionView cellForItemAtIndexPath:indexPath] bounds];
+        popController.sourceView = [self.collectionView cellForItemAtIndexPath:indexPath];
+        popController.sourceRect = [[self.collectionView cellForItemAtIndexPath:indexPath] bounds];
     }
-
+    
     [self presentViewController:vc animated:YES completion:nil];
 }
 

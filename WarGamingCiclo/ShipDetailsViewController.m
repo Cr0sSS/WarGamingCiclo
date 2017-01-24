@@ -199,7 +199,7 @@ static NSArray* groupNames;
 }
 
 
-#pragma mark - UITableViewDataSource
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return sectionShift + [self.additionalBatteries count];
@@ -271,6 +271,7 @@ static NSArray* groupNames;
             [cell.imageView setImageWithURLRequest:request
                                   placeholderImage:nil
                                            success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                                               
                                                weakCell.largeImageView.image = image;
                                                [weakCell layoutSubviews];
                                            }
@@ -451,7 +452,7 @@ static NSArray* groupNames;
 }
 
 
-#pragma mark - UITableViewDelegate
+#pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -478,7 +479,6 @@ static NSArray* groupNames;
 #pragma mark - Popover
 
 - (void)actionShowDescription:(UIBarButtonItem*)sender {
-    
     ShipDescriptionViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ShipDescriptionVC"];
     vc.text = self.ship.review;
     vc.modalPresentationStyle = UIModalPresentationPopover;

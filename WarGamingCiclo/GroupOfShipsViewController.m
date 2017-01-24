@@ -136,7 +136,7 @@ static NSDictionary* typeNames;
 }
 
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -200,7 +200,7 @@ static NSDictionary* typeNames;
 }
 
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - Collection View Delegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;

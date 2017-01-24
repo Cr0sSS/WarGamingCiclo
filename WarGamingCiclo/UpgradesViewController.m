@@ -127,7 +127,7 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
 }
 
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [self.upgradesArray count];
@@ -163,22 +163,26 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
      
                                           failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                                               [self showError:error withTitle:@"Ошибка загрузки изображения"];
-    }];
+                                          }];
     return cell;
 }
 
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - Collection View Delegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self callPopoverAtIndexPath:indexPath];
+}
+
+
 #pragma mark - Popover
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)callPopoverAtIndexPath:(NSIndexPath*)indexPath {
     UpgradeDetailsViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UpgradeDetailsVC"];
     
     vc.upgrade = self.upgradesArray[indexPath.section][indexPath.row];
@@ -190,8 +194,8 @@ static NSString * const upgradeCellIdentifier = @"UpgradeCell";
     if (popController) {
         popController.delegate = self;
         
-        popController.sourceView = [collectionView cellForItemAtIndexPath:indexPath];
-        popController.sourceRect = [[collectionView cellForItemAtIndexPath:indexPath] bounds];
+        popController.sourceView = [self.collectionView cellForItemAtIndexPath:indexPath];
+        popController.sourceRect = [[self.collectionView cellForItemAtIndexPath:indexPath] bounds];
     }
     
     [self presentViewController:vc animated:YES completion:nil];

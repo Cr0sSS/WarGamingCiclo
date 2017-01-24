@@ -86,7 +86,7 @@ static float tableWidth = 248.f;
 }
 
 
-#pragma mark - UITableViewDataSource
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -113,7 +113,7 @@ static float tableWidth = 248.f;
 }
 
 
-#pragma mark - UITableViewDelegate
+#pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
